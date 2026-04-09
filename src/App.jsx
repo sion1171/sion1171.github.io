@@ -5,6 +5,7 @@ import FloatingParticles from './components/FloatingParticles'
 import About from './components/About'
 import Publications from './components/Publications'
 import Resume from './components/Resume'
+import GitHubActivity from './components/GitHubActivity'
 import Contact from './components/Contact'
 import './App.css'
 
@@ -33,6 +34,7 @@ function App() {
         <About />
         <Publications />
         <Resume />
+        <GitHubActivity />
         <Contact />
       </main>
 

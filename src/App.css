@@ -674,6 +674,33 @@
   margin: 0.4rem 0 0;
 }
 
+/* ===== GitHub Activity ===== */
+.github-activity {
+  background: var(--bg-section-2);
+}
+
+.github-calendar-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.github-calendar-wrapper:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 30px var(--glow-primary);
+}
+
+@media (max-width: 768px) {
+  .github-calendar-wrapper {
+    padding: 1rem;
+  }
+}
+
 /* ===== Contact ===== */
 .contact {
   background: var(--bg-section-2);

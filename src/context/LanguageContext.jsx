@@ -186,6 +186,10 @@ const translations = {
       title: 'Contact',
       intro: 'Feel free to reach out!'
     },
+    github: {
+      title: 'GitHub Activity',
+      totalCount: '{{count}} contributions in 2026'
+    },
     footer: {
       copyright: '© 2024 Sion Yoon. All rights reserved.'
     }
@@ -372,6 +376,10 @@ const translations = {
     contact: {
       title: '연락처',
       intro: '궁금한 점이 있으시면 연락해 주세요!'
+    },
+    github: {
+      title: 'GitHub 활동',
+      totalCount: '2026년 {{count}}개의 기여'
     },
     footer: {
       copyright: '© 2024 윤시온. All rights reserved.'

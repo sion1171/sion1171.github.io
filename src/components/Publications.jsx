@@ -9,13 +9,14 @@ function Publications() {
   return (
     <section id="publications" className="section publications">
       <div className="container" ref={ref}>
-        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}>{t.publications.title}</h2>
+        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}><span className="section-emoji">📄</span>{t.publications.title}</h2>
+        <div className="section-divider" />
         <div className="pub-grid">
           {t.publications.items.map((pub, index) => (
             <article
               key={pub.id}
               className={`pub-card scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-              style={{ transitionDelay: `${0.1 + index * 0.1}s` }}
+              style={{ transitionDelay: `${0.05 + index * 0.05}s` }}
             >
               <div className="pub-year">{pub.year}</div>
               <h3>{pub.title}</h3>

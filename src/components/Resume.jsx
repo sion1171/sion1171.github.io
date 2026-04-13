@@ -8,15 +8,16 @@ function Resume() {
   return (
     <section id="resume" className="section resume">
       <div className="container" ref={ref}>
-        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}>{t.resume.title}</h2>
+        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}><span className="section-emoji">📋</span>{t.resume.title}</h2>
+        <div className="section-divider" />
 
-        <div className={`resume-download scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
+        <div className={`resume-download scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.05s' }}>
           <a href="/resume.pdf" className="btn" download>
             {t.resume.download}
           </a>
         </div>
 
-        <h3 className={`timeline-section-title scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
+        <h3 className={`timeline-section-title scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
           {t.resume.experience}
         </h3>
         <div className="timeline">
@@ -24,7 +25,7 @@ function Resume() {
             <div
               key={item.id}
               className={`timeline-item scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-              style={{ transitionDelay: `${0.2 + index * 0.08}s` }}
+              style={{ transitionDelay: `${0.12 + index * 0.05}s` }}
             >
               <div className="timeline-marker">
                 <div className="timeline-dot timeline-dot--experience" />
@@ -50,7 +51,7 @@ function Resume() {
           ))}
         </div>
 
-        <div className={`resume-bottom scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.5s' }}>
+        <div className={`resume-bottom scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
           <div className="resume-bottom-col">
             <h3>{t.resume.education}</h3>
             {t.resume.eduItems.map(edu => (

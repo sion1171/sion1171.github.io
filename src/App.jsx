@@ -1,7 +1,6 @@
 import { useLanguage } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import TypeWriter from './components/TypeWriter'
-import FloatingParticles from './components/FloatingParticles'
 import About from './components/About'
 import Publications from './components/Publications'
 import Resume from './components/Resume'
@@ -17,7 +16,8 @@ function App() {
       <Navbar />
 
       <header className="hero">
-        <FloatingParticles />
+        <div className="hero-cover" />
+        <div className="hero-icon">👨‍💻</div>
         <div className="hero-content">
           <h1>
             <TypeWriter

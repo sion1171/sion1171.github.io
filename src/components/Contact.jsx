@@ -8,8 +8,9 @@ function Contact() {
   return (
     <section id="contact" className="section contact">
       <div className="container" ref={ref}>
-        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}>{t.contact.title}</h2>
-        <p className={`contact-intro scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
+        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}><span className="section-emoji">💬</span>{t.contact.title}</h2>
+        <div className="section-divider" />
+        <p className={`contact-intro scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.05s' }}>
           {t.contact.intro}
         </p>
 
@@ -22,7 +23,7 @@ function Contact() {
             <div
               key={item.text}
               className={`contact-item scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
-              style={{ transitionDelay: `${0.2 + index * 0.1}s` }}
+              style={{ transitionDelay: `${0.1 + index * 0.05}s` }}
             >
               <span className="contact-icon">{item.icon}</span>
               <a

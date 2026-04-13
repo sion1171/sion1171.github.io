@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
+import { useTheme } from '../context/ThemeContext'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { language, toggleLanguage, t } = useLanguage()
+  const { theme, toggleTheme } = useTheme()
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -23,6 +25,11 @@ function Navbar() {
         <li><button onClick={() => scrollTo('publications')}>{t.nav.publications}</button></li>
         <li><button onClick={() => scrollTo('resume')}>{t.nav.resume}</button></li>
         <li><button onClick={() => scrollTo('contact')}>{t.nav.contact}</button></li>
+        <li>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+        </li>
         <li>
           <button className="lang-toggle" onClick={toggleLanguage}>
             {language === 'en' ? '한국어' : 'EN'}

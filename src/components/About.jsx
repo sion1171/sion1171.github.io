@@ -8,8 +8,9 @@ function About() {
   return (
     <section id="about" className="section about">
       <div className="container" ref={ref}>
-        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}>{t.about.title}</h2>
-        <div className={`about-content scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
+        <h2 className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}><span className="section-emoji">🧑‍💻</span>{t.about.title}</h2>
+        <div className="section-divider" />
+        <div className={`about-content scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
           <div className="about-image">
             <img src="/profile.jpg" alt="Sion" className="profile-image" />
           </div>

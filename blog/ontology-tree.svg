@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" fill="none">
+  <style>
+    text { font-family: 'Inter', -apple-system, sans-serif; }
+    .node { rx: 5; ry: 5; }
+    .node-label { font-size: 10px; font-weight: 600; fill: #37352f; }
+    .node-desc { font-size: 8px; fill: #787774; }
+    .depth-label { font-size: 9px; font-weight: 600; fill: #b4b4b0; }
+    .line { stroke: #d3d1cb; stroke-width: 1.5; fill: none; }
+    .highlight-line { stroke: #e53935; stroke-width: 2; fill: none; }
+    .highlight-node { stroke: #e53935 !important; stroke-width: 2; }
+    .input-box { rx: 6; ry: 6; }
+    .input-text { font-size: 8.5px; fill: #787774; font-family: 'SF Mono', monospace; }
+    .input-label { font-size: 9px; font-weight: 600; fill: #e53935; }
+    .badge { rx: 3; ry: 3; }
+    .badge-text { font-size: 7px; font-weight: 600; fill: white; }
+  </style>
+
+  <!-- Background -->
+  <rect width="860" height="500" fill="#ffffff" rx="8" />
+
+  <!-- Title -->
+  <text x="430" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="#37352f">Product Ontology: Hierarchical Classification</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10" fill="#787774">Example categories showing depth levels and branching structure</text>
+
+  <!-- Depth labels on left -->
+  <text x="20" y="105" class="depth-label">Depth 1</text>
+  <text x="20" y="215" class="depth-label">Depth 2</text>
+  <text x="20" y="325" class="depth-label">Depth 3</text>
+
+  <!-- Horizontal depth lines -->
+  <line x1="70" y1="100" x2="840" y2="100" stroke="#f0efed" stroke-width="1" stroke-dasharray="4,4" />
+  <line x1="70" y1="210" x2="840" y2="210" stroke="#f0efed" stroke-width="1" stroke-dasharray="4,4" />
+  <line x1="70" y1="320" x2="840" y2="320" stroke="#f0efed" stroke-width="1" stroke-dasharray="4,4" />
+
+  <!-- ==================== BEEF TREE ==================== -->
+
+  <!-- Depth 1: raw-beef (highlighted) -->
+  <rect x="80" y="78" width="130" height="40" class="node highlight-node" fill="#fef0f0" stroke="#e53935" />
+  <text x="145" y="97" text-anchor="middle" class="node-label">raw-beef</text>
+  <text x="145" y="110" text-anchor="middle" class="node-desc">Unprocessed beef</text>
+
+  <!-- Lines from raw-beef to depth 2 -->
+  <path d="M145,118 L145,140 L95,140 L95,190" class="highlight-line" />
+  <path d="M145,118 L145,140 L195,140 L195,190" class="line" />
+
+  <!-- Depth 2: raw-beef-cut (highlighted) -->
+  <rect x="30" y="190" width="130" height="40" class="node highlight-node" fill="#fef0f0" stroke="#e53935" />
+  <text x="95" y="209" text-anchor="middle" class="node-label">raw-beef-cut</text>
+  <text x="95" y="222" text-anchor="middle" class="node-desc">Specific cuts</text>
+
+  <!-- Depth 2: raw-beef-ground -->
+  <rect x="175" y="190" width="130" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="240" y="209" text-anchor="middle" class="node-label">raw-beef-ground</text>
+  <text x="240" y="222" text-anchor="middle" class="node-desc">Ground/minced</text>
+
+  <!-- Lines from raw-beef-cut to depth 3 -->
+  <path d="M95,230 L95,260 L70,260 L70,300" class="highlight-line" />
+  <path d="M95,230 L95,260 L155,260 L155,300" class="line" />
+
+  <!-- Depth 3: raw-beef-cut-frozen (highlighted) -->
+  <rect x="10" y="300" width="130" height="40" class="node highlight-node" fill="#fef0f0" stroke="#e53935" />
+  <text x="75" y="319" text-anchor="middle" class="node-label">...-cut-frozen</text>
+  <text x="75" y="332" text-anchor="middle" class="node-desc">Frozen cuts</text>
+
+  <!-- Depth 3: raw-beef-cut-chilled -->
+  <rect x="150" y="300" width="130" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="215" y="319" text-anchor="middle" class="node-label">...-cut-chilled</text>
+  <text x="215" y="332" text-anchor="middle" class="node-desc">Chilled cuts</text>
+
+  <!-- ==================== COFFEE TREE ==================== -->
+
+  <!-- Depth 1: green-coffee-bean -->
+  <rect x="350" y="78" width="155" height="40" class="node" fill="#f0f7f0" stroke="#c8e6c9" />
+  <text x="427" y="97" text-anchor="middle" class="node-label">green-coffee-bean</text>
+  <text x="427" y="110" text-anchor="middle" class="node-desc">Unroasted coffee</text>
+
+  <!-- Depth 1: roasted-coffee-bean -->
+  <rect x="530" y="78" width="155" height="40" class="node" fill="#fef8f0" stroke="#ffe0b2" />
+  <text x="607" y="97" text-anchor="middle" class="node-label">roasted-coffee-bean</text>
+  <text x="607" y="110" text-anchor="middle" class="node-desc">Roasted coffee</text>
+
+  <!-- Lines from roasted-coffee-bean to depth 2 -->
+  <path d="M607,118 L607,140 L557,140 L557,190" class="line" />
+  <path d="M607,118 L607,140 L657,140 L657,190" class="line" />
+
+  <!-- Depth 2: whole-roasted -->
+  <rect x="492" y="190" width="130" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="557" y="209" text-anchor="middle" class="node-label">whole-roasted</text>
+  <text x="557" y="222" text-anchor="middle" class="node-desc">Whole beans</text>
+
+  <!-- Depth 2: ground-coffee -->
+  <rect x="637" y="190" width="130" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="702" y="209" text-anchor="middle" class="node-label">ground-coffee</text>
+  <text x="702" y="222" text-anchor="middle" class="node-desc">Ground coffee</text>
+
+  <!-- ==================== FROZEN FRUIT MINI TREE ==================== -->
+
+  <!-- Depth 1: frozen-strawberry -->
+  <rect x="710" y="78" width="135" height="40" class="node" fill="#f0f0f7" stroke="#c5cae9" />
+  <text x="777" y="97" text-anchor="middle" class="node-label">frozen-strawberry</text>
+  <text x="777" y="110" text-anchor="middle" class="node-desc">Frozen strawberries</text>
+
+  <!-- Lines from frozen-strawberry to depth 2 -->
+  <path d="M777,118 L777,140 L737,140 L737,190" class="line" />
+  <path d="M777,118 L777,140 L817,140 L817,190" class="line" />
+
+  <!-- Depth 2: frozen-whole-strawberry -->
+  <rect x="670" y="190" width="135" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="737" y="209" text-anchor="middle" class="node-label">...-whole</text>
+  <text x="737" y="222" text-anchor="middle" class="node-desc">Whole form</text>
+
+  <!-- Depth 2: frozen-sliced-strawberry -->
+  <rect x="810" y="190" width="135" height="40" class="node" fill="#f7f6f3" stroke="#e3e2de" />
+  <text x="877" y="209" text-anchor="middle" class="node-label">...-sliced</text>
+  <text x="877" y="222" text-anchor="middle" class="node-desc">Sliced form</text>
+
+  <!-- ==================== EXAMPLE CLASSIFICATION (bottom) ==================== -->
+  <rect x="80" y="380" width="700" height="100" class="input-box" fill="#fafaf9" stroke="#e3e2de" />
+
+  <text x="100" y="402" class="input-label">Example Classification Path</text>
+
+  <text x="100" y="422" class="input-text">Input:  "FRZ BNLS BUFFALO MEAT NCK 20KG CTNS"</text>
+
+  <!-- Arrow steps -->
+  <text x="100" y="446" font-size="9" fill="#787774">Step 1</text>
+  <rect x="142" y="436" width="90" height="18" rx="3" fill="#4caf50" />
+  <text x="187" y="449" text-anchor="middle" class="badge-text">Normalize</text>
+  <text x="240" y="449" font-size="8" fill="#787774">→ "Frozen Boneless Buffalo Meat Neck"</text>
+
+  <text x="100" y="466" font-size="9" fill="#787774">Step 2</text>
+  <rect x="142" y="456" width="90" height="18" rx="3" fill="#ff9800" />
+  <text x="187" y="469" text-anchor="middle" class="badge-text">Retrieve</text>
+  <text x="240" y="469" font-size="8" fill="#787774">→ [raw-beef: 0.89, raw-pork: 0.73, raw-poultry: 0.65, ...]</text>
+
+  <text x="530" y="446" font-size="9" fill="#787774">Step 3</text>
+  <rect x="572" y="436" width="90" height="18" rx="3" fill="#e53935" />
+  <text x="617" y="449" text-anchor="middle" class="badge-text">Classify</text>
+  <text x="670" y="449" font-size="8" fill="#e53935" font-weight="600">→ raw-beef</text>
+
+  <text x="530" y="466" font-size="9" fill="#787774">Step 4</text>
+  <rect x="572" y="456" width="90" height="18" rx="3" fill="#8e24aa" />
+  <text x="617" y="469" text-anchor="middle" class="badge-text">Drill Down</text>
+  <text x="670" y="469" font-size="8" fill="#8e24aa" font-weight="600">→ raw-beef-cut-frozen</text>
+</svg>

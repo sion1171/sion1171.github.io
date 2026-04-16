@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" fill="none">
+  <style>
+    text { font-family: 'Inter', -apple-system, sans-serif; }
+    .title { font-size: 11px; font-weight: 600; fill: #37352f; }
+    .subtitle { font-size: 9px; fill: #787774; }
+    .label { font-size: 9.5px; fill: #37352f; font-weight: 500; }
+    .detail { font-size: 8px; fill: #787774; }
+    .arrow { stroke: #d3d1cb; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .box { rx: 6; ry: 6; stroke-width: 1; }
+    .stage-num { font-size: 9px; font-weight: 700; fill: white; }
+    .example { font-size: 7.5px; fill: #9b9a97; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .cost { font-size: 7.5px; fill: #e16259; font-weight: 500; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#d3d1cb" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#ffffff" rx="8" />
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#37352f">RAG Classification Pipeline</text>
+  <text x="450" y="48" text-anchor="middle" font-size="10" fill="#787774">Raw trade description → Standardized product category</text>
+
+  <!-- Stage 1: Raw Input -->
+  <rect x="40" y="80" width="180" height="80" class="box" fill="#f7f6f3" stroke="#e3e2de" />
+  <circle cx="60" cy="98" r="9" fill="#787774" />
+  <text x="60" y="101" text-anchor="middle" class="stage-num">0</text>
+  <text x="78" y="101" class="label">Raw Input</text>
+  <text x="55" y="120" class="example">"FRZ BNLS BUFFALO MEAT NCK</text>
+  <text x="55" y="132" class="example"> 20KG CTNS AL-SAMI APEDA/181"</text>
+  <text x="55" y="148" class="detail">Messy, abbreviated, multilingual</text>
+
+  <!-- Arrow 1 -->
+  <path d="M220,120 L260,120" class="arrow" />
+
+  <!-- Stage 2: Normalize -->
+  <rect x="270" y="80" width="180" height="80" class="box" fill="#f0f7f0" stroke="#c8e6c9" />
+  <circle cx="290" cy="98" r="9" fill="#4caf50" />
+  <text x="290" y="101" text-anchor="middle" class="stage-num">1</text>
+  <text x="308" y="101" class="label">Normalize</text>
+  <text x="285" y="120" class="detail">LLM cleans raw description</text>
+  <text x="285" y="136" class="example">"Frozen Boneless Buffalo</text>
+  <text x="285" y="148" class="example"> Meat Neck, 20kg cartons"</text>
+
+  <!-- Arrow 2 -->
+  <path d="M450,120 L490,120" class="arrow" />
+
+  <!-- Stage 3: Embed -->
+  <rect x="500" y="80" width="170" height="80" class="box" fill="#f0f0f7" stroke="#c5cae9" />
+  <circle cx="520" cy="98" r="9" fill="#5c6bc0" />
+  <text x="520" y="101" text-anchor="middle" class="stage-num">2</text>
+  <text x="538" y="101" class="label">Embed</text>
+  <text x="515" y="120" class="detail">text-embedding-3-large</text>
+  <text x="515" y="136" class="example">[0.024, -0.183, 0.456, ...]</text>
+  <text x="515" y="148" class="detail">512-dimensional vector</text>
+
+  <!-- Arrow 3 -->
+  <path d="M670,120 L710,120" class="arrow" />
+
+  <!-- Stage 4: Retrieve -->
+  <rect x="720" y="80" width="150" height="80" class="box" fill="#fef8f0" stroke="#ffe0b2" />
+  <circle cx="740" cy="98" r="9" fill="#ff9800" />
+  <text x="740" y="101" text-anchor="middle" class="stage-num">3</text>
+  <text x="758" y="101" class="label">Retrieve</text>
+  <text x="735" y="120" class="detail">pgvector cosine search</text>
+  <text x="735" y="136" class="detail">Top 12 candidates from</text>
+  <text x="735" y="148" class="detail">hundreds of categories</text>
+
+  <!-- Arrow down from Retrieve -->
+  <path d="M795,160 L795,195" class="arrow" />
+
+  <!-- Stage 5: Classify Depth-1 -->
+  <rect x="630" y="205" width="240" height="100" class="box" fill="#fef0f0" stroke="#ffcdd2" />
+  <circle cx="650" cy="223" r="9" fill="#e53935" />
+  <text x="650" y="226" text-anchor="middle" class="stage-num">4</text>
+  <text x="668" y="226" class="label">Classify (Depth 1)</text>
+  <text x="645" y="246" class="detail">LLM selects best category from candidates</text>
+  <text x="645" y="262" class="detail">+ domain-specific edge case rules injected</text>
+  <text x="645" y="282" class="example">Candidates: [raw-beef, raw-pork, raw-poultry, ...]</text>
+  <text x="645" y="294" class="example">Selected:   raw-beef</text>
+
+  <!-- Arrow down from Classify -->
+  <path d="M750,305 L750,340" class="arrow" />
+
+  <!-- Stage 6: Drill Down -->
+  <rect x="580" y="350" width="290" height="110" class="box" fill="#f8f0fe" stroke="#e1bee7" />
+  <circle cx="600" cy="368" r="9" fill="#8e24aa" />
+  <text x="600" y="371" text-anchor="middle" class="stage-num">5</text>
+  <text x="618" y="371" class="label">Hierarchical Drill-Down</text>
+  <text x="595" y="392" class="detail">Recursive sub-category selection</text>
+  <text x="595" y="408" class="detail">Coverage Score >= 80 to proceed</text>
+  <text x="595" y="424" class="detail">Stops when no confident match or leaf reached</text>
+  <text x="595" y="446" class="example">raw-beef → raw-beef-cut → raw-beef-cut-frozen</text>
+
+  <!-- Arrow to Output -->
+  <path d="M580,420 L430,420 L430,395" class="arrow" />
+
+  <!-- Output -->
+  <rect x="300" y="350" width="200" height="70" class="box" fill="#37352f" stroke="#37352f" />
+  <text x="400" y="377" text-anchor="middle" font-size="10" font-weight="600" fill="#ffffff">Final Classification</text>
+  <text x="400" y="397" text-anchor="middle" font-size="9" fill="#a8a7a2" font-family="'SF Mono', monospace">raw-beef / raw-beef-cut /</text>
+  <text x="400" y="411" text-anchor="middle" font-size="9" fill="#a8a7a2" font-family="'SF Mono', monospace">raw-beef-cut-frozen</text>
+
+  <!-- Cost summary -->
+  <rect x="40" y="210" width="220" height="90" rx="6" ry="6" fill="#fafaf9" stroke="#e3e2de" stroke-dasharray="4,3" />
+  <text x="55" y="232" class="label">Cost per classification</text>
+  <text x="55" y="252" class="detail">Embedding:  ~$0.0001</text>
+  <text x="55" y="266" class="detail">Vector search:  ~free</text>
+  <text x="55" y="280" class="detail">LLM reasoning:  ~$0.0015</text>
+  <text x="55" y="294" class="cost">Total:  ~$0.002</text>
+
+  <!-- Edge case rules box -->
+  <rect x="40" y="350" width="220" height="110" rx="6" ry="6" fill="#fafaf9" stroke="#e3e2de" stroke-dasharray="4,3" />
+  <text x="55" y="372" class="label">Domain Rules (injected)</text>
+  <text x="55" y="392" class="example">frozen = preservation, NOT processing</text>
+  <text x="55" y="406" class="example">"coffee bean" = green (unroasted)</text>
+  <text x="55" y="420" class="example">butter = >= 80% milk fat</text>
+  <text x="55" y="434" class="example">"seed maize" = planting purpose only</text>
+  <text x="55" y="448" class="detail">Rules injected as prompt text</text>
+  <text x="55" y="460" class="detail">No retraining needed to update</text>
+
+  <!-- Dashed arrow from rules to Classify -->
+  <path d="M260,400 L580,400" stroke="#d3d1cb" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M260,250 L630,250" stroke="#d3d1cb" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowhead)" />
+
+  <!-- Footer -->
+  <text x="450" y="500" text-anchor="middle" font-size="9" fill="#b4b4b0">Each stage plays to its strength: embeddings for fast retrieval, LLMs for careful reasoning, rules for domain precision.</text>
+</svg>

@@ -1,35 +1,19 @@
-import { lazy, Suspense } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 
-const Mermaid = lazy(() => import('./Mermaid'))
-
 function renderBlock(block, i) {
-  if (typeof block === 'object') {
-    // Image block
-    if (block.type === 'image') {
-      const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
-      return (
-        <figure key={i} className="blog-figure">
-          <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" />
-          {block.caption && <figcaption>{block.caption}</figcaption>}
-        </figure>
-      )
-    }
-    // Mermaid diagram block
-    if (block.type === 'mermaid') {
-      return (
-        <figure key={i} className="blog-figure">
-          <Suspense fallback={<div className="mermaid-container" style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>Loading diagram...</div>}>
-            <Mermaid chart={block.chart} />
-          </Suspense>
-          {block.caption && <figcaption>{block.caption}</figcaption>}
-        </figure>
-      )
-    }
-    return null
+  if (typeof block === 'object' && block.type === 'image') {
+    const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
+    return (
+      <figure key={i} className="blog-figure">
+        <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" />
+        {block.caption && <figcaption>{block.caption}</figcaption>}
+      </figure>
+    )
   }
+
+  if (typeof block !== 'string') return null
 
   if (block.startsWith('## ')) {
     return <h2 key={i}>{block.slice(3)}</h2>

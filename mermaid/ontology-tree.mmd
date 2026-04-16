@@ -1,0 +1,27 @@
+graph TD
+    RB[raw-beef]
+    RBC[raw-beef-cut]
+    RBG[raw-beef-ground]
+    RBCF[cut-frozen]
+    RBCC[cut-chilled]
+    GCB[green-coffee-bean]
+    RCB[roasted-coffee-bean]
+    WR[whole-roasted]
+    GC[ground-coffee]
+    RB --> RBC
+    RB --> RBG
+    RBC --> RBCF
+    RBC --> RBCC
+    RCB --> WR
+    RCB --> GC
+    style RB fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBC fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBCF fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBG fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style RBCC fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style GCB fill:#f2f8f2,stroke:#b8ddb8,color:#2e7d32
+    style RCB fill:#fdf7ef,stroke:#e8d5a8,color:#e65100
+    style WR fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style GC fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    linkStyle 0 stroke:#e53935,stroke-width:2px
+    linkStyle 2 stroke:#e53935,stroke-width:2px

@@ -834,21 +834,6 @@
   margin-top: 0.5rem;
 }
 
-.mermaid-container {
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
-  background: #ffffff;
-  border-radius: 6px;
-  border: 1px solid var(--border-light);
-  padding: 1.5rem 1rem;
-}
-
-.mermaid-container svg {
-  max-width: 100%;
-  height: auto;
-}
-
 /* ===== Contact ===== */
 .contact {
   background: var(--bg-primary);

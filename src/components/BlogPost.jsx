@@ -3,11 +3,12 @@ import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 
 function renderBlock(block, i) {
-  // Image block: ![alt](src)
+  // Image block
   if (typeof block === 'object' && block.type === 'image') {
+    const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
     return (
       <figure key={i} className="blog-figure">
-        <img src={block.src} alt={block.alt || ''} className="blog-image" />
+        <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" />
         {block.caption && <figcaption>{block.caption}</figcaption>}
       </figure>
     )

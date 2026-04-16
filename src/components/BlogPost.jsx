@@ -95,7 +95,10 @@ function BlogPost() {
       <div className="container" style={{ paddingTop: '5rem' }}>
         <Link to="/" className="back-link">← {t.blog.backHome}</Link>
         <article className="blog-post-content">
-          <div className="blog-date">{post.date}</div>
+          <div className="blog-meta">
+            <span className="blog-date">{post.date}</span>
+            <span className="blog-read-time">{Math.max(1, Math.round(post.content.filter(b => typeof b === 'string').join(' ').split(/\s+/).length / 200))} min read</span>
+          </div>
           <h1>{post.title}</h1>
           <div className="pub-tags" style={{ marginBottom: '2rem' }}>
             {post.tags.map(tag => (

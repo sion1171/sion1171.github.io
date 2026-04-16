@@ -11,7 +11,7 @@ const blogPosts = [
     summary: 'How we built a RAG-based classifier that cut costs by 99.7% and boosted accuracy by 45% — and why conventional ML couldn\'t do it.',
     tags: ['RAG', 'LLM', 'NLP', 'Product Classification'],
     content: [
-      'At Tridge, we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our product taxonomy. Our ontology has roughly 4,000 top-level categories and around 11,000 nodes in total when you include every sub-level. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
+      'At Tridge, we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our proprietary product hierarchy, the Tridge Ontology. It has roughly 4,000 top-level categories and around 11,000 nodes in total when you include every sub-level. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
 
       { type: 'image-row', images: [
         { src: '/blog/tridge-products.png', alt: 'Tridge product taxonomy browse view', caption: 'Browsing product categories on Tridge — from fruits to dairy, coffee, and beyond.' },
@@ -26,7 +26,7 @@ const blogPosts = [
 
       'We tried it too. It worked — until it didn\'t. Here\'s why:',
 
-      '**1. The taxonomy changes constantly.** Our product ontology isn\'t static. New categories get added, existing ones get split or merged, descriptions get refined. Every time the taxonomy changes, a supervised ML model needs to be retrained on new labeled data. With 11,000 categories evolving in parallel, this happened frequently enough that we were spending more time maintaining the model than building features.',
+      '**1. The ontology changes constantly.** The Tridge Ontology isn\'t static. New categories get added, existing ones get split or merged, descriptions get refined. Every time it changes, a supervised ML model needs to be retrained on new labeled data. With 11,000 categories evolving in parallel, this happened frequently enough that we were spending more time maintaining the model than building features.',
 
       '**2. The class distribution is brutally long-tailed.** We have thousands of product categories. Some — like raw beef or fresh apples — have thousands of labeled examples. Others — like seed maize or malted barley extract — have a handful. Traditional classifiers struggle with this imbalance. You either undersample the head (losing signal) or oversample the tail (overfitting to noise). Neither is great.',
 
@@ -44,11 +44,11 @@ const blogPosts = [
 
       '**Stage 1: Normalize.** An LLM takes the raw trade description and produces a clean, standardized product description. "FRZ BNLS BUFFALO MEAT NCK" becomes "Frozen Boneless Buffalo Meat Neck." This step alone eliminates most of the noise that kills traditional classifiers.',
 
-      '**Stage 2: Retrieve.** We embed the normalized description into a vector and search our product taxonomy using cosine similarity (pgvector). This returns the top candidate categories — typically 10-15 options out of 11,000. This narrows the search space fast and cheap.',
+      '**Stage 2: Retrieve.** We embed the normalized description into a vector and search the Tridge Ontology using cosine similarity (pgvector). This returns the top candidate categories — typically 10-15 options out of 11,000. This narrows the search space fast and cheap.',
 
       '**Stage 3: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is where the magic happens — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
 
-      '**Stage 4: Drill down.** The system recursively navigates the taxonomy hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
+      '**Stage 4: Drill down.** The system recursively navigates the ontology hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
 
       '## The Key Insight: Retrieve First, Reason Second',
 
@@ -56,9 +56,9 @@ const blogPosts = [
 
       'Neither component alone would work. Pure vector search returns plausible candidates but can\'t distinguish between "raw beef" and "processed beef" when both are semantically close to "frozen beef." Pure LLM classification — feeding all 11,000 categories into a prompt — is too expensive and unreliable (context window limits, attention degradation over thousands of options).',
 
-      'But together, they\'re remarkably effective. The retrieval step does O(1) approximate nearest neighbor search across the full taxonomy. The reasoning step only needs to evaluate 10-15 candidates instead of thousands. Cost per classification: under $0.002.',
+      'But together, they\'re remarkably effective. The retrieval step does O(1) approximate nearest neighbor search across the full Tridge Ontology. The reasoning step only needs to evaluate 10-15 candidates instead of thousands. Cost per classification: under $0.002.',
 
-      { type: 'image', src: '/blog/ontology-tree.svg', alt: 'Product Ontology Hierarchy', caption: 'A simplified view of the hierarchical product ontology. Red path shows how "frozen boneless buffalo meat" is classified.' },
+      { type: 'image', src: '/blog/ontology-tree.svg', alt: 'Tridge Ontology Hierarchy', caption: 'A simplified view of the Tridge Ontology. Red path shows how "frozen boneless buffalo meat" is classified through the hierarchy.' },
 
       '## Edge Cases: Where Domain Knowledge Matters Most',
 
@@ -78,7 +78,7 @@ const blogPosts = [
 
       { type: 'image', src: '/blog/classification-example.svg', alt: 'Classification example: Korean non-alcoholic sparkling rosé', caption: 'Real classification: from a raw Korean trade description through candidate retrieval to final hierarchical category.' },
 
-      'The retrieval stage narrows 11,000 categories down to a handful of plausible candidates — notice how the vector search correctly identifies beverage-related categories but can\'t distinguish between alcoholic and non-alcoholic variants on its own. The LLM then selects the right top-level category and drills down through three levels to reach the exact match.',
+      'The retrieval stage narrows the entire Tridge Ontology down to a handful of plausible candidates — notice how the vector search correctly identifies beverage-related categories but can\'t distinguish between alcoholic and non-alcoholic variants on its own. The LLM then selects the right top-level category and drills down through three levels to reach the exact match.',
 
       '## Results',
 
@@ -86,18 +86,18 @@ const blogPosts = [
 
       '- **Cost dropped by 99.7%.** The previous system\'s per-classification cost was orders of magnitude higher. Our RAG pipeline runs at ~$0.002 per classification.',
       '- **Accuracy improved by 45%.** Especially on long-tail categories and edge cases that the old system consistently misclassified.',
-      '- **Taxonomy updates take minutes, not weeks.** When a new category is added to our 11,000-node ontology, we generate its embedding and it\'s immediately searchable. Edge case rules are added as prompt text. No model retraining needed.',
+      '- **Ontology updates take minutes, not weeks.** When a new category is added to the Tridge Ontology, we generate its embedding and it\'s immediately searchable. Edge case rules are added as prompt text. No model retraining needed.',
       '- **Multilingual inputs work out of the box.** The LLM normalization step handles descriptions in English, Spanish, Japanese, Korean — without separate language-specific models.',
 
       '## When Traditional ML Still Wins',
 
       'To be clear: RAG isn\'t universally better. If your taxonomy is small and stable, your labels are clean, your class distribution is balanced, and your input text is well-structured, a fine-tuned BERT or even a simpler model will be faster, cheaper, and perfectly accurate. E-commerce product categorization is a great example.',
 
-      'RAG shines when: the taxonomy is large and evolving, the input is noisy and multilingual, domain rules are critical, and the cost of misclassification is high. That was exactly our situation — 11,000 categories across global agricultural trade.',
+      'RAG shines when: the ontology is large and evolving, the input is noisy and multilingual, domain rules are critical, and the cost of misclassification is high. That was exactly our situation — the Tridge Ontology with 11,000 categories across global agricultural trade.',
 
       '## Takeaways',
 
-      'If you\'re building a classification system and hitting the limits of traditional ML, consider whether your problem shares these characteristics: a large and evolving taxonomy, noisy multilingual input, hard domain rules, and a long-tailed category distribution. If it does, RAG might not just be an alternative — it might be the only approach that works reliably at scale.',
+      'If you\'re building a classification system and hitting the limits of traditional ML, consider whether your problem shares these characteristics: a large and evolving ontology, noisy multilingual input, hard domain rules, and a long-tailed category distribution. If it does, RAG might not just be an alternative — it might be the only approach that works reliably at scale.',
 
       'The key architectural insight is separating retrieval from reasoning. Let vector search do the fast filtering across thousands of categories. Let LLMs do the careful thinking on the shortlist. And let domain rules live as text that humans can read and update — not as weights buried in a model checkpoint.'
     ]

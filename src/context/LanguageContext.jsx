@@ -69,11 +69,11 @@ const blogPosts = [
 
       '## A Real Example',
 
-      'Here\'s an actual classification from our production system. The input is a raw trade description for a non-alcoholic sparkling wine:',
+      'Here\'s an actual classification from our production system. The input is a raw Korean trade description: "와일드 아이돌 논알코올 스파클링 ROSÉ 3 container 500 bottles." A human reader might guess this is sparkling wine, but the product is actually non-alcoholic — a distinction that matters for trade classification. The system needs to see past the Korean text, the shipping metadata, and the misleading "sparkling rosé" phrasing to land on the correct category.',
 
-      { type: 'image', src: '/blog/classification-example.svg', alt: 'Classification example: non-alcoholic sparkling rosé', caption: 'Real classification: from raw input through candidate retrieval to final hierarchical classification.' },
+      { type: 'image', src: '/blog/classification-example.svg', alt: 'Classification example: Korean non-alcoholic sparkling rosé', caption: 'Real classification: from a raw Korean trade description through candidate retrieval to final hierarchical category.' },
 
-      'The retrieval stage surfaces 12 plausible candidates from the full taxonomy — notice how the vector search correctly identifies beverage-related categories but can\'t distinguish between alcoholic and non-alcoholic variants on its own. The LLM then selects the right depth-1 category and drills down through three levels to reach the exact match.',
+      'The retrieval stage surfaces plausible candidates from the full taxonomy — notice how the vector search correctly identifies beverage-related categories but can\'t distinguish between alcoholic and non-alcoholic variants on its own. The LLM then selects the right depth-1 category and drills down through three levels to reach the exact match.',
 
       '## Results',
 

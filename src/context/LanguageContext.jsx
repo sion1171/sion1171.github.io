@@ -35,7 +35,28 @@ const blogPosts = [
 
       'Our pipeline works in stages:',
 
-      { type: 'image', src: '/blog/pipeline.svg', alt: 'RAG Classification Pipeline', caption: 'The full classification pipeline: from raw trade description to standardized product category.' },
+      { type: 'mermaid', caption: 'The full classification pipeline: from raw trade description to standardized product category.', chart: `flowchart TD
+    A["🔤 <b>Raw Input</b><br/><i>FRZ BNLS BUFFALO MEAT NCK 20KG</i>"]
+    B["✨ <b>Stage 1: Normalize</b><br/>LLM cleans raw description<br/><i>→ Frozen Boneless Buffalo Meat Neck</i>"]
+    C["📐 <b>Stage 2: Embed</b><br/>text-embedding-3-large<br/><i>→ 512-dim vector</i>"]
+    D["🔍 <b>Stage 3: Retrieve</b><br/>pgvector cosine similarity<br/><i>→ Top 12 candidates</i>"]
+    E["🎯 <b>Stage 4: Classify</b><br/>LLM picks best category<br/><i>→ raw-beef</i>"]
+    F["🌳 <b>Stage 5: Drill Down</b><br/>Recursive sub-category selection<br/><i>→ raw-beef-cut-frozen</i>"]
+    G["✅ <b>Final: raw-beef / raw-beef-cut / raw-beef-cut-frozen</b>"]
+    R["📋 <b>Domain Rules</b><br/>frozen = preservation<br/>coffee bean = green<br/>butter ≥ 80% milk fat"]
+
+    A --> B --> C --> D --> E --> F --> G
+    R -.->|injected| E
+    R -.->|injected| F
+
+    style A fill:#f5f5f4,stroke:#d0d0cc,color:#333
+    style B fill:#f2f8f2,stroke:#b8ddb8,color:#333
+    style C fill:#f0f0f8,stroke:#b8b8dd,color:#333
+    style D fill:#fdf7ef,stroke:#e8d5a8,color:#333
+    style E fill:#fdf0f0,stroke:#e8b8b8,color:#333
+    style F fill:#f7f0fd,stroke:#d1b8e8,color:#333
+    style G fill:#2d2d2d,stroke:#2d2d2d,color:#fff
+    style R fill:#fafaf9,stroke:#d0d0cc,stroke-dasharray: 5 3,color:#555` },
 
       '**Stage 1: Normalize.** An LLM takes the raw trade description and produces a clean, standardized product description. "FRZ BNLS BUFFALO MEAT NCK" becomes "Frozen Boneless Buffalo Meat Neck." This step alone eliminates most of the noise that kills traditional classifiers.',
 
@@ -53,7 +74,37 @@ const blogPosts = [
 
       'But together, they\'re remarkably effective. The retrieval step does O(1) approximate nearest neighbor search with pgvector. The reasoning step only needs to evaluate 10-15 candidates instead of hundreds. Cost per classification: under $0.002.',
 
-      { type: 'image', src: '/blog/ontology-tree.svg', alt: 'Product Ontology Hierarchy', caption: 'A simplified view of the hierarchical product ontology. Red path shows how "frozen boneless buffalo meat" is classified.' },
+      { type: 'mermaid', caption: 'A simplified view of the hierarchical product ontology. Red path shows how "frozen boneless buffalo meat" is classified.', chart: `graph TD
+    RB["<b>raw-beef</b><br/><i>Unprocessed beef</i>"]
+    RBC["<b>raw-beef-cut</b><br/><i>Specific cuts</i>"]
+    RBG["<b>raw-beef-ground</b><br/><i>Ground / minced</i>"]
+    RBCF["<b>...-cut-frozen</b><br/><i>Frozen cuts</i>"]
+    RBCC["<b>...-cut-chilled</b><br/><i>Chilled cuts</i>"]
+
+    GCB["<b>green-coffee-bean</b><br/><i>Unroasted</i>"]
+    RCB["<b>roasted-coffee-bean</b><br/><i>Roasted</i>"]
+    WR["<b>whole-roasted</b><br/><i>Whole beans</i>"]
+    GC["<b>ground</b><br/><i>Ground coffee</i>"]
+
+    RB --> RBC
+    RB --> RBG
+    RBC --> RBCF
+    RBC --> RBCC
+    RCB --> WR
+    RCB --> GC
+
+    style RB fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBC fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBCF fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style RBG fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style RBCC fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style GCB fill:#f2f8f2,stroke:#b8ddb8,color:#2e7d32
+    style RCB fill:#fdf7ef,stroke:#e8d5a8,color:#e65100
+    style WR fill:#f5f5f4,stroke:#d0d0cc,color:#555
+    style GC fill:#f5f5f4,stroke:#d0d0cc,color:#555
+
+    linkStyle 0 stroke:#e53935,stroke-width:2px
+    linkStyle 2 stroke:#e53935,stroke-width:2px` },
 
       '## Edge Cases: Where Domain Knowledge Matters Most',
 

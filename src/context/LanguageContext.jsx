@@ -38,17 +38,19 @@ const blogPosts = [
 
       'RAG — Retrieval-Augmented Generation — gave us a fundamentally different approach. Instead of training a model to memorize boundaries across thousands of categories, we let the system look up the most relevant ones at query time and then reason about which one fits best.',
 
-      'Our pipeline works in four stages:',
+      'Our pipeline works in five stages:',
 
       { type: 'image', src: '/blog/pipeline.svg', alt: 'RAG Classification Pipeline', caption: 'The full classification pipeline: from raw trade description to standardized product category.' },
 
       '**Stage 1: Normalize.** An LLM takes the raw trade description and produces a clean, standardized product description. "FRZ BNLS BUFFALO MEAT NCK" becomes "Frozen Boneless Buffalo Meat Neck." This step alone eliminates most of the noise that kills traditional classifiers.',
 
-      '**Stage 2: Retrieve.** We embed the normalized description into a vector and search the Tridge Ontology using cosine similarity (pgvector). This returns the top candidate categories — typically 10-15 options out of 11,000. This narrows the search space fast and cheap.',
+      '**Stage 2: Embed.** The normalized description is converted into a high-dimensional vector using an embedding model. This numerical representation captures the semantic meaning of the product, enabling similarity-based search against the Tridge Ontology.',
 
-      '**Stage 3: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is where the magic happens — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
+      '**Stage 3: Retrieve.** We search the Tridge Ontology using cosine similarity (pgvector). This returns the top candidate categories — typically 10-15 options out of 11,000. This narrows the search space fast and cheap.',
 
-      '**Stage 4: Drill down.** The system recursively navigates the ontology hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
+      '**Stage 4: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is where the magic happens — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
+
+      '**Stage 5: Drill down.** The system recursively navigates the ontology hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
 
       '## The Key Insight: Retrieve First, Reason Second',
 

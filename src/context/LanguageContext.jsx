@@ -92,7 +92,9 @@ const blogPosts = [
 
       '## Results',
 
-      'After switching from our previous approach to the RAG pipeline:',
+      'I started building this pipeline in April 2025. After months of iteration — rewriting retrieval logic, tuning prompts, stress-testing edge cases, and validating against production data — the system was fully deployed to production in October 2025. It has been running reliably in production ever since, classifying tens of thousands of trade records every week.',
+
+      'The numbers speak for themselves:',
 
       '- **Cost dropped by 99.7%.** The previous system\'s per-classification cost was orders of magnitude higher. Our RAG pipeline runs at ~$0.002 per classification.',
       '- **Accuracy improved by 45%, now exceeding 95%.** Especially on long-tail categories and edge cases that the old system consistently misclassified.',

@@ -816,6 +816,17 @@
   font-size: 0.9rem;
 }
 
+.blog-image-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.blog-image-row .blog-figure {
+  margin: 0;
+}
+
 .blog-figure {
   margin: 2rem 0;
 }

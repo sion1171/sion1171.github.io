@@ -4,6 +4,20 @@ import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 
 function renderBlock(block, i) {
+  if (typeof block === 'object' && block.type === 'image-row') {
+    const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
+    return (
+      <div key={i} className="blog-image-row">
+        {block.images.map((img, j) => (
+          <figure key={j} className="blog-figure">
+            <img src={`${img.src}${cacheBust}`} alt={img.alt || ''} className="blog-image" />
+            {img.caption && <figcaption>{img.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    )
+  }
+
   if (typeof block === 'object' && block.type === 'image') {
     const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
     return (

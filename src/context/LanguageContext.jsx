@@ -13,9 +13,10 @@ const blogPosts = [
     content: [
       'At Tridge, we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our product taxonomy. Our ontology has roughly 4,000 top-level categories and around 11,000 nodes in total when you include every sub-level. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
 
-      { type: 'image', src: '/blog/tridge-products.png', alt: 'Tridge product taxonomy browse view', caption: 'Browsing product categories on Tridge — from fruits and vegetables to dairy, coffee, and beyond. Each category is backed by our 11,000-node ontology.' },
-
-      { type: 'image', src: '/blog/tridge-prices.png', alt: 'Tridge domestic price explorer', caption: 'Once classified, each product feeds into market intelligence — here, weekly wholesale prices for Fresh Hass Avocado across Mexican markets.' },
+      { type: 'image-row', images: [
+        { src: '/blog/tridge-products.png', alt: 'Tridge product taxonomy browse view', caption: 'Browsing product categories on Tridge — from fruits to dairy, coffee, and beyond.' },
+        { src: '/blog/tridge-prices.png', alt: 'Tridge domestic price explorer', caption: 'Once classified, products feed into market intelligence — weekly prices for Fresh Hass Avocado.' }
+      ] },
 
       'This is a product classification problem. It sounds like a textbook ML task. But when we tried conventional approaches, they fell apart in ways that textbooks don\'t prepare you for.',
 

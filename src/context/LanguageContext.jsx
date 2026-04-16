@@ -48,7 +48,7 @@ const blogPosts = [
 
       '**Stage 3: Retrieve.** We search the Tridge Ontology using cosine similarity (pgvector). This returns the top candidate categories — typically 10-15 options out of 11,000. This narrows the search space fast and cheap.',
 
-      '**Stage 4: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is where the magic happens — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
+      '**Stage 4: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is the critical step — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
 
       '**Stage 5: Drill down.** The system recursively navigates the ontology hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
 

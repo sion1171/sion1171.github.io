@@ -2,6 +2,36 @@ import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 
+function renderBlock(block, i) {
+  // Image block: ![alt](src)
+  if (typeof block === 'object' && block.type === 'image') {
+    return (
+      <figure key={i} className="blog-figure">
+        <img src={block.src} alt={block.alt || ''} className="blog-image" />
+        {block.caption && <figcaption>{block.caption}</figcaption>}
+      </figure>
+    )
+  }
+
+  if (block.startsWith('## ')) {
+    return <h2 key={i}>{block.slice(3)}</h2>
+  }
+
+  // Parse **bold** and `code` within text
+  const parts = block.split(/(\*\*[^*]+\*\*|`[^`]+`)/)
+  const rendered = parts.map((part, j) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={j}>{part.slice(2, -2)}</strong>
+    }
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return <code key={j}>{part.slice(1, -1)}</code>
+    }
+    return part
+  })
+
+  return <p key={i}>{rendered}</p>
+}
+
 function BlogPost() {
   const { slug } = useParams()
   const { t, language, toggleLanguage } = useLanguage()
@@ -47,9 +77,7 @@ function BlogPost() {
               <span key={tag} className="tag">{tag}</span>
             ))}
           </div>
-          {post.content.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
+          {post.content.map((block, i) => renderBlock(block, i))}
         </article>
       </div>
     </div>

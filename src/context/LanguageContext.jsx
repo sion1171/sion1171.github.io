@@ -3,7 +3,93 @@ import { createContext, useContext, useState } from 'react'
 const LanguageContext = createContext()
 
 // Blog posts are English-only — shared across both languages
-const blogPosts = []
+const blogPosts = [
+  {
+    slug: 'why-rag-beats-ml-for-product-classification',
+    date: '2026-04-16',
+    title: 'Why We Chose RAG Over Traditional ML for Food Product Classification',
+    summary: 'How we built a RAG-based classifier that cut costs by 99.7% and boosted accuracy by 45% — and why conventional ML couldn\'t do it.',
+    tags: ['RAG', 'LLM', 'NLP', 'Product Classification'],
+    content: [
+      'At Tridge, we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our product taxonomy. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
+
+      'This is a product classification problem. It sounds like a textbook ML task. But when we actually tried conventional approaches, they fell apart in ways that textbooks don\'t prepare you for.',
+
+      '## The Problem With Traditional ML',
+
+      'If you\'ve read any blog post about product categorization with ML, you\'ve probably seen the standard playbook: collect labeled training data, extract text features (TF-IDF, word embeddings), train a multi-class classifier (SVM, XGBoost, BERT fine-tune), and deploy. This works brilliantly for e-commerce — Amazon, Shopify, and many others have proven it at scale.',
+
+      'We tried it too. And it worked — until it didn\'t. Here\'s why:',
+
+      '**1. The taxonomy changes constantly.** Our product ontology isn\'t static. New categories get added, existing ones get split or merged, descriptions get refined. Every time the taxonomy changes, a supervised ML model needs to be retrained on new labeled data. In our domain, this happened frequently enough that we were spending more time maintaining the model than building features.',
+
+      '**2. The class distribution is brutally long-tailed.** We have hundreds of product categories. Some — like raw beef or fresh apples — have thousands of labeled examples. Others — like seed maize or malted barley extract — have a handful. Traditional classifiers struggle with this imbalance. You either undersample the head (losing signal) or oversample the tail (overfitting to noise). Neither is great.',
+
+      '**3. Trade descriptions are not product titles.** In e-commerce, a product title is written to be understood: "Apple iPhone 15 Pro Max 256GB Black." In international trade, a product description looks like this: "FRZ BNLS BUFFALO MEAT NCK 20KG CTNS AL-SAMI APEDA/181." These are full of abbreviations, HS code references, packaging specs, and sometimes multiple languages in the same line. A model trained on clean labels chokes on this.',
+
+      '**4. Domain rules can\'t be learned from data alone.** Is "frozen beef" a raw product or a processed product? In common sense, freezing feels like processing. But in commodity trade standards, freezing is preservation — not processing. "Frozen beef" is raw beef. This distinction matters for classification, but no amount of training data will reliably teach a statistical model this rule. It needs to be explicitly encoded.',
+
+      '## Why RAG Works Here',
+
+      'RAG — Retrieval-Augmented Generation — gave us a fundamentally different approach. Instead of training a model to memorize category boundaries, we let the system look up the most relevant categories and then reason about which one fits best.',
+
+      'Our pipeline works in stages:',
+
+      { type: 'image', src: '/blog/pipeline.svg', alt: 'RAG Classification Pipeline', caption: 'The full classification pipeline: from raw trade description to standardized product category.' },
+
+      '**Stage 1: Normalize.** An LLM takes the raw trade description and produces a clean, standardized product description. "FRZ BNLS BUFFALO MEAT NCK" becomes "Frozen Boneless Buffalo Meat Neck." This step alone eliminates most of the noise that kills traditional classifiers.',
+
+      '**Stage 2: Retrieve.** We embed the normalized description into a vector and search our product taxonomy using cosine similarity. This returns the top candidate categories — typically 10-15 options out of hundreds. This narrows the search space fast and cheap.',
+
+      '**Stage 3: Classify.** An LLM receives the original description, the candidate categories, and domain-specific rules, then selects the best match. This is where the magic happens — the LLM can reason about edge cases, apply domain rules, and handle ambiguity in ways that a statistical classifier simply cannot.',
+
+      '**Stage 4: Drill down.** The system recursively navigates the taxonomy hierarchy, selecting sub-categories at each level until it reaches the most specific match or decides it doesn\'t have enough information to go deeper.',
+
+      '## The Key Insight: Retrieve First, Reason Second',
+
+      'The architecture is intentionally split. Vector search handles what it\'s good at — finding semantically similar items from a large set, fast and cheap. LLMs handle what they\'re good at — reasoning about edge cases with injected domain knowledge.',
+
+      'Neither component alone would work. Pure vector search returns plausible candidates but can\'t distinguish between "raw beef" and "processed beef" when both are semantically close to "frozen beef." Pure LLM classification — feeding the entire taxonomy into a prompt — is too expensive and unreliable at scale (context window limits, attention degradation with hundreds of options).',
+
+      'But together, they\'re remarkably effective. The retrieval step does O(1) approximate nearest neighbor search with pgvector. The reasoning step only needs to evaluate 10-15 candidates instead of hundreds. Cost per classification: under $0.002.',
+
+      { type: 'image', src: '/blog/ontology-tree.svg', alt: 'Product Ontology Hierarchy', caption: 'A simplified view of the hierarchical product ontology. Red path shows how "frozen boneless buffalo meat" is classified.' },
+
+      '## Edge Cases: Where Domain Knowledge Matters Most',
+
+      'The thing that convinced us RAG was the right call was how naturally it handles edge cases. In our domain, these aren\'t rare — they\'re the rule:',
+
+      '**Frozen ≠ Processed.** "Frozen salmon" is raw salmon, not processed. "Frozen" is preservation. Our system injects this rule directly into the LLM prompt when seafood or meat categories are among the candidates.',
+
+      '**Coffee bean ambiguity.** In commodity trade, "coffee bean" without a roasting indicator means green (unroasted). "Arabica beans" → green coffee bean. "Ground coffee" → roasted (grinding implies post-roast processing). A classifier trained on consumer product data would get this wrong every time.',
+
+      '**Butter fat content.** Natural butter must be ≥80% milk fat by trade standards. If a product is described as a butter blend with other fats, it\'s a different category entirely. This is a legal/regulatory distinction, not a semantic one.',
+
+      'With traditional ML, encoding these rules means feature engineering hacks — adding regex-based flags, building rule-based post-processing pipelines, maintaining a growing list of exceptions. With RAG, we just add the rule to the prompt. The LLM reads it, understands it, and applies it. When a new edge case emerges, we add a few lines of text. No retraining, no redeployment of model weights.',
+
+      '## Results',
+
+      'After switching from our previous approach to the RAG pipeline:',
+
+      '- **Cost dropped by 99.7%.** The previous system\'s per-classification cost was orders of magnitude higher. Our RAG pipeline runs at ~$0.002 per classification.',
+      '- **Accuracy improved by 45%.** Especially on long-tail categories and edge cases that the old system consistently misclassified.',
+      '- **Taxonomy updates take minutes, not weeks.** When a new category is added, we generate its embedding and it\'s immediately searchable. Edge case rules are added as prompt text. No model retraining needed.',
+      '- **Multilingual inputs work out of the box.** The LLM normalization step handles descriptions in English, Spanish, Japanese, Korean — without separate language-specific models.',
+
+      '## When Traditional ML Still Wins',
+
+      'I want to be honest: RAG isn\'t universally better. If your taxonomy is stable, your labels are clean, your class distribution is balanced, and your input text is well-structured, a fine-tuned BERT or even a simpler model will be faster, cheaper, and perfectly accurate. E-commerce product categorization is a great example.',
+
+      'RAG shines when: the taxonomy evolves, the input is noisy, domain rules are critical, and the cost of misclassification is high. That\'s exactly our situation in global agricultural trade.',
+
+      '## Takeaways',
+
+      'If you\'re building a product classification system and hitting the limits of traditional ML, consider whether your problem shares these characteristics: a changing taxonomy, noisy multilingual input, hard domain rules, and a long-tailed category distribution. If it does, RAG might not just be an alternative — it might be the only approach that works reliably at scale.',
+
+      'The key architectural decision is separating retrieval from reasoning. Let vector search do the fast filtering. Let LLMs do the careful thinking. And let domain rules live as text that humans can read and update, not as weights buried in a model checkpoint.'
+    ]
+  }
+]
 
 const translations = {
   en: {

@@ -682,7 +682,7 @@
 
 /* ===== GitHub Activity ===== */
 .github-activity {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
 }
 
 .github-calendar-wrapper {
@@ -709,7 +709,7 @@
 
 /* ===== Blog ===== */
 .blog {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 .blog-subtitle {

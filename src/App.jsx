@@ -35,8 +35,8 @@ function App() {
         <About />
         <Publications />
         <Resume />
-        <GitHubActivity />
         <Blog />
+        <GitHubActivity />
         <Contact />
       </main>
 

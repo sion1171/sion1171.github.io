@@ -67,6 +67,14 @@ const blogPosts = [
 
       'With traditional ML, encoding these rules means feature engineering hacks — adding regex-based flags, building rule-based post-processing pipelines, maintaining a growing list of exceptions. With RAG, we just add the rule to the prompt. The LLM reads it, understands it, and applies it. When a new edge case emerges, we add a few lines of text. No retraining, no redeployment of model weights.',
 
+      '## A Real Example',
+
+      'Here\'s an actual classification from our production system. The input is a raw trade description for a non-alcoholic sparkling wine:',
+
+      { type: 'image', src: '/blog/classification-example.svg', alt: 'Classification example: non-alcoholic sparkling rosé', caption: 'Real classification: from raw input through candidate retrieval to final hierarchical classification.' },
+
+      'The retrieval stage surfaces 12 plausible candidates from the full taxonomy — notice how the vector search correctly identifies beverage-related categories but can\'t distinguish between alcoholic and non-alcoholic variants on its own. The LLM then selects the right depth-1 category and drills down through three levels to reach the exact match.',
+
       '## Results',
 
       'After switching from our previous approach to the RAG pipeline:',

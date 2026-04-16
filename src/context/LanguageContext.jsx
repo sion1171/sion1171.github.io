@@ -2,12 +2,16 @@ import { createContext, useContext, useState } from 'react'
 
 const LanguageContext = createContext()
 
+// Blog posts are English-only — shared across both languages
+const blogPosts = []
+
 const translations = {
   en: {
     nav: {
       about: 'About',
       publications: 'Publications',
       resume: 'Resume',
+      blog: 'Blog',
       contact: 'Contact'
     },
     hero: {
@@ -182,6 +186,14 @@ const translations = {
         }
       ]
     },
+    blog: {
+      title: 'Blog',
+      subtitle: 'Thoughts on AI, NLP, and Data Science.',
+      empty: 'Coming soon — stay tuned!',
+      readMore: 'Read →',
+      backHome: 'Back to Home',
+      posts: blogPosts
+    },
     contact: {
       title: 'Contact',
       intro: 'Feel free to reach out!'
@@ -199,6 +211,7 @@ const translations = {
       about: '소개',
       publications: '연구/프로젝트',
       resume: '이력',
+      blog: '블로그',
       contact: '연락처'
     },
     hero: {
@@ -372,6 +385,14 @@ const translations = {
           description: '코딩 교육 단체 운영. 웹 개발 교육 및 9개 해커톤 프로젝트 관리.'
         }
       ]
+    },
+    blog: {
+      title: '블로그',
+      subtitle: 'AI, NLP, 데이터 사이언스에 대한 이야기.',
+      empty: '곧 글이 올라올 예정입니다!',
+      readMore: '읽기 →',
+      backHome: '홈으로',
+      posts: blogPosts
     },
     contact: {
       title: '연락처',

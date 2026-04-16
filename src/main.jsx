@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import './index.css'
 import App from './App.jsx'
 import ProjectDetail from './components/ProjectDetail'
+import BlogPost from './components/BlogPost'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/project/:id" element={<ProjectDetail />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
         </LanguageProvider>
       </ThemeProvider>

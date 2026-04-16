@@ -24,6 +24,7 @@ function Navbar() {
         <li><button onClick={() => scrollTo('about')}>{t.nav.about}</button></li>
         <li><button onClick={() => scrollTo('publications')}>{t.nav.publications}</button></li>
         <li><button onClick={() => scrollTo('resume')}>{t.nav.resume}</button></li>
+        <li><button onClick={() => scrollTo('blog')}>{t.nav.blog}</button></li>
         <li><button onClick={() => scrollTo('contact')}>{t.nav.contact}</button></li>
         <li>
           <button className="theme-toggle" onClick={toggleTheme}>

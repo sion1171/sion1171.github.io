@@ -5,6 +5,7 @@ import About from './components/About'
 import Publications from './components/Publications'
 import Resume from './components/Resume'
 import GitHubActivity from './components/GitHubActivity'
+import Blog from './components/Blog'
 import Contact from './components/Contact'
 import './App.css'
 
@@ -35,6 +36,7 @@ function App() {
         <Publications />
         <Resume />
         <GitHubActivity />
+        <Blog />
         <Contact />
       </main>
 

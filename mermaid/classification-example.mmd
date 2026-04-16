@@ -1,44 +1,27 @@
-flowchart TD
-    INPUT["WILD IDOL NON-ALCOHOLIC SPARKLING ROSÉ<br/>3 container 500 bottles"]
+flowchart LR
+    INPUT["WILD IDOL NON-ALCOHOLIC<br/>SPARKLING ROSÉ"]
 
-    subgraph RETRIEVE ["Stage 3: Retrieve — Top 12 Candidates"]
+    subgraph RETRIEVE ["Retrieve: Top Candidates"]
         C1["sparkling-wine"]
-        C2["flavored-sparkling-presse"]
-        C3["flavored-sparkling-water"]
-        C4["wine-spritzer"]
-        C5["alcohol-free-cider"]
-        C6["sparkling-soft-drink"]
-        C7["cider"]
-        C8["alcohol-free-wine ✓"]
-        C9["sparkling-natural-mineral-water"]
-        C10["alcohol-free-beer"]
-        C11["flavored-carbonated-ade"]
-        C12["still-wine"]
+        C2["alcohol-free-wine ✓"]
+        C3["sparkling-soft-drink"]
+        C4["... 9 more"]
     end
 
-    subgraph CLASSIFY ["Stage 4–5: Classify + Drill Down"]
+    subgraph CLASSIFY ["Classify + Drill Down"]
         D1["alcohol-free-wine"]
-        D2["alcohol-free-sparkling-wine"]
-        D3["alcohol-free-sparkling-rosé"]
+        D2["...-sparkling-wine"]
+        D3["...-sparkling-rosé"]
         D1 --> D2 --> D3
     end
 
-    INPUT --> RETRIEVE
-    RETRIEVE --> CLASSIFY
+    INPUT --> RETRIEVE --> CLASSIFY
 
     style INPUT fill:#f5f5f4,stroke:#d0d0cc,color:#333
-    style C8 fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
+    style C2 fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
     style C1 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C2 fill:#f7f6f3,stroke:#e3e2de,color:#999
     style C3 fill:#f7f6f3,stroke:#e3e2de,color:#999
     style C4 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C5 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C6 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C7 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C9 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C10 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C11 fill:#f7f6f3,stroke:#e3e2de,color:#999
-    style C12 fill:#f7f6f3,stroke:#e3e2de,color:#999
     style D1 fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
     style D2 fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828
     style D3 fill:#fdf0f0,stroke:#e53935,stroke-width:2px,color:#c62828

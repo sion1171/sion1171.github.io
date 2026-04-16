@@ -18,13 +18,21 @@ const blogPosts = [
         { src: '/blog/tridge-prices.png', alt: 'Tridge domestic price explorer', caption: 'Once classified, products feed into market intelligence — weekly prices for Fresh Hass Avocado.' }
       ] },
 
-      'This is a product classification problem. It sounds like a textbook ML task. But when we tried conventional approaches, they fell apart in ways that textbooks don\'t prepare you for.',
+      'This is a product classification problem, and we didn\'t arrive at our current solution overnight. It took years of iteration — and failure — to get here.',
 
-      '## The Problem With Traditional ML',
+      '## The Road to RAG: What We Tried First',
 
-      'The standard playbook looks simple: collect labeled data, extract text features (TF-IDF, word embeddings), train a multi-class classifier (SVM, XGBoost, BERT fine-tune), and deploy. This works brilliantly for e-commerce — Amazon, Shopify, and many others have proven it at scale.',
+      '**Manual labeling (circa 2021).** In the early days, human annotators classified every product by hand. This was accurate when done well, but it didn\'t scale. Worse, different annotators made different judgment calls on ambiguous products — "frozen shrimp" might end up under raw seafood or processed food depending on who labeled it. Consistency was impossible to enforce across a team, and the cost per classification was high.',
 
-      'We tried it too. It worked — until it didn\'t. Here\'s why:',
+      '**Traditional ML.** We moved to supervised machine learning — the standard playbook: collect labeled data, extract text features, train a multi-class classifier, and deploy. This worked brilliantly for common products but fell apart on the long tail. With 11,000 categories, many had too few training examples. The model confidently misclassified edge cases, and every ontology update required expensive retraining cycles.',
+
+      '**LLM-only approach.** When large language models became available, we tried feeding the entire Tridge Ontology into a prompt and letting the LLM classify directly. The accuracy was promising, but the cost was astronomical — processing thousands of categories per classification, multiple times per second, across millions of transactions. It simply wasn\'t viable at production scale.',
+
+      'Each approach taught us something. Manual labeling showed us the importance of domain rules. Traditional ML showed us the limits of statistical pattern matching on noisy, long-tailed data. The LLM-only approach showed us that reasoning ability was the missing piece — we just needed to make it affordable. That\'s what led us to RAG.',
+
+      '## Why Previous Approaches Failed',
+
+      'To understand why RAG works, it helps to see exactly where the earlier methods broke down:',
 
       '**1. The ontology changes constantly.** The Tridge Ontology isn\'t static. New categories get added, existing ones get split or merged, descriptions get refined. Every time it changes, a supervised ML model needs to be retrained on new labeled data. With 11,000 categories evolving in parallel, this happened frequently enough that we were spending more time maintaining the model than building features.',
 
@@ -34,9 +42,9 @@ const blogPosts = [
 
       '**4. Domain rules can\'t be learned from data alone.** Is "frozen beef" a raw product or a processed product? In common sense, freezing feels like processing. But in commodity trade standards, freezing is preservation — not processing. "Frozen beef" is raw beef. This distinction matters for classification, but no amount of training data will reliably teach a statistical model this rule. It needs to be explicitly encoded.',
 
-      '## Why RAG Works Here',
+      '## The RAG Solution',
 
-      'RAG — Retrieval-Augmented Generation — gave us a fundamentally different approach. Instead of training a model to memorize boundaries across thousands of categories, we let the system look up the most relevant ones at query time and then reason about which one fits best.',
+      'RAG — Retrieval-Augmented Generation — combines the best of what we learned. Instead of training a model to memorize boundaries across thousands of categories, we let the system look up the most relevant ones at query time and then reason about which one fits best. It gives us the reasoning power of an LLM without the astronomical cost of feeding it the entire ontology.',
 
       'Our pipeline works in five stages:',
 
@@ -58,7 +66,7 @@ const blogPosts = [
 
       'Neither component alone would work. Pure vector search returns plausible candidates but can\'t distinguish between "raw beef" and "processed beef" when both are semantically close to "frozen beef." Pure LLM classification — feeding all 11,000 categories into a prompt — is too expensive and unreliable (context window limits, attention degradation over thousands of options).',
 
-      'But together, they\'re remarkably effective. The retrieval step does O(1) approximate nearest neighbor search across the full Tridge Ontology. The reasoning step only needs to evaluate 10-15 candidates instead of thousands. Cost per classification: under $0.002.',
+      'But together, they\'re remarkably effective. Retrieval narrows 11,000 categories to 10-15 candidates. The LLM only reasons over that shortlist. Cost per classification: under $0.002.',
 
       { type: 'image', src: '/blog/ontology-tree.svg', alt: 'Tridge Ontology Hierarchy', caption: 'A simplified view of the Tridge Ontology. Red path shows how "frozen boneless buffalo meat" is classified through the hierarchy.' },
 

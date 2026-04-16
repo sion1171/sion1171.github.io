@@ -34,14 +34,18 @@ function renderBlock(block, i) {
     return <h2 key={i}>{block.slice(3)}</h2>
   }
 
-  // Parse **bold** and `code` within text
-  const parts = block.split(/(\*\*[^*]+\*\*|`[^`]+`)/)
+  // Parse **bold**, `code`, and [link](url) within text
+  const parts = block.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/)
   const rendered = parts.map((part, j) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={j}>{part.slice(2, -2)}</strong>
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={j}>{part.slice(1, -1)}</code>
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (linkMatch) {
+      return <a key={j} href={linkMatch[2]} target="_blank" rel="noopener noreferrer">{linkMatch[1]}</a>
     }
     return part
   })

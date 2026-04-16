@@ -11,7 +11,7 @@ const blogPosts = [
     summary: 'How we built a RAG-based classifier that cut costs by 99.7% and boosted accuracy by 45% — and why conventional ML couldn\'t do it.',
     tags: ['RAG', 'LLM', 'NLP', 'Product Classification'],
     content: [
-      'At Tridge, we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our proprietary product hierarchy, the Tridge Ontology. It has roughly 4,000 top-level categories and around 11,000 nodes in total when you include every sub-level. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
+      'At [Tridge](https://www.tridge.com/), we process millions of trade transactions from around the world. Each transaction comes with a raw product description — messy, multilingual, often abbreviated — that needs to be mapped to the correct category in our proprietary product hierarchy, the Tridge Ontology. It has roughly 4,000 top-level categories and around 11,000 nodes in total when you include every sub-level. Getting this wrong means bad data downstream: flawed market reports, broken analytics, and misinformed trade decisions.',
 
       { type: 'image-row', images: [
         { src: '/blog/tridge-products.png', alt: 'Tridge product taxonomy browse view', caption: 'Browsing product categories on Tridge — from fruits to dairy, coffee, and beyond.' },

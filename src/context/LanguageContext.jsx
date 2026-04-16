@@ -95,7 +95,7 @@ const blogPosts = [
       'After switching from our previous approach to the RAG pipeline:',
 
       '- **Cost dropped by 99.7%.** The previous system\'s per-classification cost was orders of magnitude higher. Our RAG pipeline runs at ~$0.002 per classification.',
-      '- **Accuracy improved by 45%.** Especially on long-tail categories and edge cases that the old system consistently misclassified.',
+      '- **Accuracy improved by 45%, now exceeding 95%.** Especially on long-tail categories and edge cases that the old system consistently misclassified.',
       '- **Ontology updates take minutes, not weeks.** When a new category is added to the Tridge Ontology, we generate its embedding and it\'s immediately searchable. Edge case rules are added as prompt text. No model retraining needed.',
       '- **Multilingual inputs work out of the box.** The LLM normalization step handles descriptions in English, Spanish, Japanese, Korean — without separate language-specific models.',
 

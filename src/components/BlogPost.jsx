@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
@@ -38,6 +39,10 @@ function BlogPost() {
   const { slug } = useParams()
   const { t, language, toggleLanguage } = useLanguage()
   const { theme, toggleTheme } = useTheme()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [slug])
 
   const post = t.blog.posts.find(p => p.slug === slug)
 

@@ -113,6 +113,60 @@ const blogPosts = [
 
       'The key architectural insight is separating retrieval from reasoning. Let vector search do the fast filtering across thousands of categories. Let LLMs do the careful thinking on the shortlist. And let domain rules live as text that humans can read and update — not as weights buried in a model checkpoint.'
     ]
+  },
+  {
+    slug: 'vibe-coding-is-harder-than-it-looks',
+    date: '2026-04-17',
+    title: 'Why Vibe Coding Is Harder Than It Looks',
+    summary: 'AI didn\'t make my job easier. It made my job bigger. A reflection on how startup engineering roles are quietly transforming.',
+    tags: ['AI', 'Startups', 'Engineering Culture', 'Reflection'],
+    content: [
+      'Siddhant Khare recently wrote a piece called [AI fatigue is real and nobody talks about it](https://siddhantkhare.com/writing/ai-fatigue-is-real). It resonated with me more than any technical blog post has in a while. Not because of the tooling advice — though that was solid — but because he named something I\'d been feeling but couldn\'t articulate: the work got faster, but I got more tired.',
+
+      'I want to share my own version of this, from the perspective of someone working at an agri-trade startup where "AI engineer" no longer means what it used to.',
+
+      '## The Job Description Changed',
+
+      'A year ago, my role was clear. I built AI pipelines — data processing, model training, prompt engineering. I\'d hand off the results to data engineers or backend engineers, they\'d integrate it into the product, and we\'d ship. The boundary between "AI work" and "product work" was well-defined.',
+
+      'That boundary no longer exists.',
+
+      'Today, when I build a feature, I\'m expected to deliver the whole thing. Not just the model or the pipeline — the UI, the deployment, the monitoring. A task that used to be "build a classification endpoint" is now "build the classification feature." The API isn\'t the deliverable anymore. The working product is.',
+
+      'This isn\'t because management decided to cut headcount. It\'s because AI tools made it possible for one person to do what used to take a small team. And once it\'s possible, it becomes expected.',
+
+      '## 1-2 Weeks Became 1-2 Days',
+
+      'Here\'s the thing about vibe coding that nobody warns you about: it actually works. I can scaffold a React component, wire up an API route, write database queries, and deploy — all in a fraction of the time it used to take. Claude Code, Cursor, Copilot — these tools genuinely compress the production timeline.',
+
+      'A feature that would have taken me two weeks now takes two days. That sounds amazing. And it is — the first time. But then you realize: the sprint didn\'t get shorter. It got filled with more features. The velocity went up, so the expectations went up. You\'re not doing less work in less time. You\'re doing more work in the same time.',
+
+      'Khare nailed this: "AI removed the governor that natural work pace once provided."',
+
+      '## From Specialist to Generalist (Whether You Like It or Not)',
+
+      'In a startup, this shift is especially brutal. There\'s no large team to absorb the expanded scope. When AI makes it feasible for one engineer to own a full vertical, that\'s exactly what happens. You become a team of one.',
+
+      'I went from "the person who builds the AI pipeline" to "the person who builds the product." That includes the pipeline, the API, the frontend, the deployment, and handling VOC when users report issues. AI didn\'t replace my job. It replaced my teammates\' involvement in my projects.',
+
+      'This is the part that the "10x engineer" narrative misses. Yes, I ship faster. But I also review my own code, debug my own frontend, write my own tests, and maintain my own infrastructure. The surface area of responsibility grew faster than the productivity gains.',
+
+      '## What Actually Helps',
+
+      'I\'m not writing this to complain. I genuinely believe AI tools have made me more capable. But capability without sustainability is just a burnout timeline. Here\'s what\'s worked for me:',
+
+      '**Draw the line between "can" and "should."** Just because I can build the frontend doesn\'t mean I should always do it alone. Knowing when a task requires dedicated frontend expertise — and delegating accordingly — is just as important as being able to ship it yourself.',
+
+      '**Accept that "good enough" ships.** Khare\'s advice about accepting 70% quality from AI drafts applies to the whole product, not just code. Perfectionism at startup speed is a trap.',
+
+      '## The Uncomfortable Truth',
+
+      'The uncomfortable truth is that AI didn\'t make my job easier. It made my job bigger. The tools are incredible — I can build things today that would have been impossible two years ago. But the human cost is real, and it\'s mostly invisible because everyone\'s too busy shipping to talk about it.',
+
+      'If you\'re an AI engineer at a startup and you feel like you\'re doing three people\'s jobs, you probably are. That\'s not impostor syndrome. That\'s the new normal. The question isn\'t whether to use AI — it\'s how to use it without losing yourself in the process.',
+
+      'Take care of your brain. Like Khare said: it\'s the only one you\'ve got.'
+    ]
   }
 ]
 
@@ -302,6 +356,7 @@ const translations = {
       subtitle: 'Thoughts on AI, NLP, and Data Science.',
       empty: 'Coming soon — stay tuned!',
       readMore: 'Read →',
+      viewAll: 'View all posts →',
       backHome: 'Back to Home',
       posts: blogPosts
     },
@@ -502,6 +557,7 @@ const translations = {
       subtitle: 'AI, NLP, 데이터 사이언스에 대한 이야기.',
       empty: '곧 글이 올라올 예정입니다!',
       readMore: '읽기 →',
+      viewAll: '모든 글 보기 →',
       backHome: '홈으로',
       posts: blogPosts
     },

@@ -68,7 +68,7 @@ function BlogPost() {
     return (
       <div className="blog-post" data-theme={theme}>
         <div className="container">
-          <Link to="/" className="back-link">← {t.blog.backHome}</Link>
+          <Link to="/blog" className="back-link">← Blog</Link>
           <h1>Post not found</h1>
         </div>
       </div>
@@ -93,7 +93,7 @@ function BlogPost() {
         </ul>
       </nav>
       <div className="container" style={{ paddingTop: '5rem' }}>
-        <Link to="/" className="back-link">← {t.blog.backHome}</Link>
+        <Link to="/blog" className="back-link">← Blog</Link>
         <article className="blog-post-content">
           <div className="blog-meta">
             <span className="blog-date">{post.date}</span>

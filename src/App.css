@@ -783,6 +783,11 @@
   margin-right: 0.6rem;
 }
 
+.blog-view-all {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
 .blog-read-more {
   display: inline-block;
   margin-top: 0.75rem;

@@ -60,6 +60,24 @@ function Resume() {
                 <h4>{edu.degree}</h4>
                 <div className="resume-card-place">{edu.school}</div>
                 <p>{edu.description}</p>
+                {edu.coursework && (
+                  <details className="coursework">
+                    <summary className="coursework-summary">
+                      <span className="coursework-title">Relevant Coursework</span>
+                      <span className="coursework-count">{edu.coursework.length}</span>
+                      <span className="coursework-chevron" aria-hidden="true">▸</span>
+                    </summary>
+                    <ul className="coursework-list">
+                      {edu.coursework.map(c => (
+                        <li key={c.code} className="coursework-item">
+                          <span className="coursework-code">{c.code}</span>
+                          <span className="coursework-name">{c.title}</span>
+                          <span className="coursework-desc">{c.desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </div>
             ))}
           </div>

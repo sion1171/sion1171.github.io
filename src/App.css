@@ -680,6 +680,100 @@
   margin: 0.3rem 0 0;
 }
 
+.coursework {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--border-light);
+}
+
+.coursework-summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  padding: 0.15rem 0;
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.coursework-summary::-webkit-details-marker {
+  display: none;
+}
+
+.coursework-summary:hover {
+  color: var(--accent);
+}
+
+.coursework-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.coursework-count {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+  line-height: 1.4;
+}
+
+.coursework-chevron {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.coursework[open] .coursework-chevron {
+  transform: rotate(90deg);
+}
+
+.coursework-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.7rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.coursework-item {
+  display: grid;
+  grid-template-columns: minmax(72px, auto) 1fr;
+  column-gap: 0.7rem;
+  row-gap: 0.15rem;
+  align-items: baseline;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.coursework-code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.coursework-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.coursework-desc {
+  grid-column: 2;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
 /* ===== GitHub Activity ===== */
 .github-activity {
   background: var(--bg-primary);

@@ -293,7 +293,17 @@ const translations = {
           degree: 'B.S. in Data Science, Minor in Mathematics',
           school: 'Michigan State University',
           period: '2021 - Present',
-          description: "Engineering Dean's List • Currently on gap year"
+          description: "Engineering Dean's List • Currently on gap year",
+          coursework: [
+            { code: 'CSE 482', title: 'Big Data Analysis', desc: 'Tools and techniques for storing, processing, and analyzing large-scale datasets — Hadoop, Spark, MapReduce, NoSQL.' },
+            { code: 'CMSE 201', title: 'Computational Modeling & Data Analysis I', desc: 'Foundations of computational modeling in Python — simulation, visualization, and data analysis applied to scientific problems.' },
+            { code: 'CMSE 202', title: 'Computational Modeling & Data Analysis II', desc: 'Object-oriented Python, software engineering practices, and data-driven modeling techniques for complex systems.' },
+            { code: 'CMSE 381', title: 'Methods & Models in Data Science', desc: 'Core ML algorithms — regression, classification, resampling, regularization, tree-based methods (based on ISLR).' },
+            { code: 'CMSE 382', title: 'Optimization Methods in Data Science', desc: 'Convex/non-convex optimization, gradient methods, and constrained optimization with applications to ML.' },
+            { code: 'STT 180', title: 'Introduction to Data Science', desc: 'Statistical thinking, exploratory data analysis, and inference fundamentals using R.' },
+            { code: 'STT 380', title: 'Probability & Statistics for Data Science', desc: 'Probability theory, random variables, distributions, and statistical inference for data science applications.' },
+            { code: 'MI 484', title: 'Human-Robot Interaction', desc: 'Design, evaluation, and study of interactions between humans and robots — covering social robotics, interaction modalities, and user studies.' }
+          ]
         }
       ],
       expItems: [
@@ -494,7 +504,17 @@ const translations = {
           degree: 'B.S. in Data Science, 수학 부전공',
           school: 'Michigan State University',
           period: '2021 - 현재',
-          description: "Engineering Dean's List • 현재 갭이어 중"
+          description: "Engineering Dean's List • 현재 갭이어 중",
+          coursework: [
+            { code: 'CSE 482', title: 'Big Data Analysis', desc: '대규모 데이터 저장·처리·분석 기법 — Hadoop, Spark, MapReduce, NoSQL.' },
+            { code: 'CMSE 201', title: '계산 모델링 & 데이터 분석 I', desc: 'Python 기반 계산 모델링 기초 — 시뮬레이션, 시각화, 과학 문제에 대한 데이터 분석.' },
+            { code: 'CMSE 202', title: '계산 모델링 & 데이터 분석 II', desc: '객체지향 Python, 소프트웨어 엔지니어링 실무, 복잡계에 대한 데이터 기반 모델링.' },
+            { code: 'CMSE 381', title: '데이터 사이언스 방법론과 모델', desc: '핵심 ML 알고리즘 — 회귀, 분류, 리샘플링, 정규화, 트리 기반 모델 (ISLR 기반).' },
+            { code: 'CMSE 382', title: '데이터 사이언스를 위한 최적화', desc: '볼록·비볼록 최적화, 경사 하강법, 제약 최적화와 머신러닝 응용.' },
+            { code: 'STT 180', title: '데이터 사이언스 입문', desc: '통계적 사고, 탐색적 데이터 분석, R을 활용한 추론 기초.' },
+            { code: 'STT 380', title: '데이터 사이언스를 위한 확률·통계', desc: '확률 이론, 확률변수, 분포, 데이터 사이언스 응용을 위한 통계적 추론.' },
+            { code: 'MI 484', title: 'Human-Robot Interaction', desc: '인간-로봇 상호작용의 설계·평가·연구 — 소셜 로보틱스, 인터랙션 모달리티, 사용자 스터디.' }
+          ]
         }
       ],
       expItems: [

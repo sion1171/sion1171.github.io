@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
+import Giscus from './Giscus'
 
 function renderBlock(block, i) {
   if (typeof block === 'object' && block.type === 'image-row') {
@@ -107,6 +108,9 @@ function BlogPost() {
           </div>
           {post.content.map((block, i) => renderBlock(block, i))}
         </article>
+        <div className="blog-comments">
+          <Giscus />
+        </div>
       </div>
     </div>
   )

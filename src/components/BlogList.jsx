@@ -2,10 +2,13 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
+import { blogListMeta } from '../data/routes'
 
 function BlogList() {
   const { t, language, toggleLanguage } = useLanguage()
   const { theme, toggleTheme } = useTheme()
+  useDocumentMeta(blogListMeta(t))
 
   useEffect(() => {
     window.scrollTo(0, 0)

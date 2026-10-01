@@ -14,7 +14,7 @@ function GitHubActivity() {
         <div className="github-calendar-wrapper">
           <GitHubCalendar
             username="sion1171"
-            year={2026}
+            year="last"
             colorScheme={theme}
             blockSize={13}
             blockMargin={4}

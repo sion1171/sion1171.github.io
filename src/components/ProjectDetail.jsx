@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
+import { projectMeta } from '../data/routes'
 import '../App.css'
 
 function ProjectDetail() {
@@ -12,6 +14,7 @@ function ProjectDetail() {
   }, [id])
 
   const project = t.projects?.[id]
+  useDocumentMeta(project ? projectMeta(id, project) : { title: 'Project not found | Sion Yoon' })
 
   if (!project) {
     return (
@@ -48,7 +51,7 @@ function ProjectDetail() {
         {project.images && project.images.length > 0 && (
           <section className="project-images">
             {project.images.map((img, index) => (
-              <img key={index} src={img} alt={`${project.title} - ${index + 1}`} className="project-image" />
+              <img key={index} src={img} alt={`${project.title} - ${index + 1}`} className="project-image" loading="lazy" decoding="async" />
             ))}
           </section>
         )}

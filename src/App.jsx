@@ -7,10 +7,12 @@ import Resume from './components/Resume'
 import GitHubActivity from './components/GitHubActivity'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
+import { useDocumentMeta } from './hooks/useDocumentMeta'
 import './App.css'
 
 function App() {
   const { t, language } = useLanguage()
+  useDocumentMeta()
 
   return (
     <div className="app">
@@ -41,7 +43,7 @@ function App() {
       </main>
 
       <footer>
-        <p>{t.footer.copyright}</p>
+        <p>{t.footer.copyright.replace('{{year}}', new Date().getFullYear())}</p>
       </footer>
     </div>
   )

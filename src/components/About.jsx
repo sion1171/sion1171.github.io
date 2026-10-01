@@ -12,7 +12,7 @@ function About() {
         <div className="section-divider" />
         <div className={`about-content scroll-hidden ${isVisible ? 'scroll-visible' : ''}`} style={{ transitionDelay: '0.1s' }}>
           <div className="about-image">
-            <img src="/profile.jpg" alt="Sion" className="profile-image" />
+            <img src="/profile.jpg" alt="Sion" className="profile-image" width="140" height="140" decoding="async" />
           </div>
           <div className="about-text">
             {t.about.greeting && <h3>{t.about.greeting}</h3>}

@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 import Giscus from './Giscus'
+import { useDocumentMeta } from '../hooks/useDocumentMeta'
+import { blogPostMeta } from '../data/routes'
 
 function renderBlock(block, i) {
   if (typeof block === 'object' && block.type === 'image-row') {
@@ -11,7 +13,7 @@ function renderBlock(block, i) {
       <div key={i} className="blog-image-row">
         {block.images.map((img, j) => (
           <figure key={j} className="blog-figure">
-            <img src={`${img.src}${cacheBust}`} alt={img.alt || ''} className="blog-image" />
+            <img src={`${img.src}${cacheBust}`} alt={img.alt || ''} className="blog-image" loading="lazy" decoding="async" />
             {img.caption && <figcaption>{img.caption}</figcaption>}
           </figure>
         ))}
@@ -23,7 +25,7 @@ function renderBlock(block, i) {
     const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
     return (
       <figure key={i} className="blog-figure">
-        <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" />
+        <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" loading="lazy" decoding="async" />
         {block.caption && <figcaption>{block.caption}</figcaption>}
       </figure>
     )
@@ -64,6 +66,7 @@ function BlogPost() {
   }, [slug])
 
   const post = t.blog.posts.find(p => p.slug === slug)
+  useDocumentMeta(post ? blogPostMeta(post) : { title: 'Post not found | Sion Yoon' })
 
   if (!post) {
     return (

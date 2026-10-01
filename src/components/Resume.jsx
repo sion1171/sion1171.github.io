@@ -33,7 +33,7 @@ function Resume() {
               <div className="timeline-card">
                 <span className="timeline-period">{item.period}</span>
                 <div className="timeline-header">
-                  {item.logo && <img src={item.logo} alt={item.company} className="company-logo" />}
+                  {item.logo && <img src={item.logo} alt={item.company} className="company-logo" loading="lazy" />}
                   <div>
                     <h4 className="timeline-title">{item.title}</h4>
                     <div className="timeline-place">
@@ -88,7 +88,7 @@ function Resume() {
               <div key={item.id} className="resume-card">
                 <span className="resume-card-period">{item.period}</span>
                 <div className="resume-card-header">
-                  {item.logo && <img src={item.logo} alt={item.company} className="company-logo" />}
+                  {item.logo && <img src={item.logo} alt={item.company} className="company-logo" loading="lazy" />}
                   <div>
                     <h4>{item.title}</h4>
                     <div className="resume-card-place">{item.company}</div>

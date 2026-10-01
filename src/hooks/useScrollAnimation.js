@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useScrollAnimation(options = {}) {
+export function useScrollAnimation() {
   const ref = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -15,7 +15,7 @@ export function useScrollAnimation(options = {}) {
           observer.unobserve(element)
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px', ...options }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     )
 
     observer.observe(element)

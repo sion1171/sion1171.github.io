@@ -1,14 +1,16 @@
 import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
-import { useTheme } from '../context/ThemeContext'
-import Giscus from './Giscus'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { blogPostMeta } from '../data/routes'
+import { readingTime } from '../utils/readingTime'
+import Navbar from './Navbar'
+import Giscus from './Giscus'
+
+const cacheBust = `?v=${__BUILD_TIME__}`
 
 function renderBlock(block, i) {
   if (typeof block === 'object' && block.type === 'image-row') {
-    const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
     return (
       <div key={i} className="blog-image-row">
         {block.images.map((img, j) => (
@@ -22,7 +24,6 @@ function renderBlock(block, i) {
   }
 
   if (typeof block === 'object' && block.type === 'image') {
-    const cacheBust = typeof __BUILD_TIME__ !== 'undefined' ? `?v=${__BUILD_TIME__}` : ''
     return (
       <figure key={i} className="blog-figure">
         <img src={`${block.src}${cacheBust}`} alt={block.alt || ''} className="blog-image" loading="lazy" decoding="async" />
@@ -58,62 +59,42 @@ function renderBlock(block, i) {
 
 function BlogPost() {
   const { slug } = useParams()
-  const { t, language, toggleLanguage } = useLanguage()
-  const { theme, toggleTheme } = useTheme()
+  const { t } = useLanguage()
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [slug])
 
   const post = t.blog.posts.find(p => p.slug === slug)
-  useDocumentMeta(post ? blogPostMeta(post) : { title: 'Post not found | Sion Yoon' })
-
-  if (!post) {
-    return (
-      <div className="blog-post" data-theme={theme}>
-        <div className="container">
-          <Link to="/blog" className="back-link">← Blog</Link>
-          <h1>Post not found</h1>
-        </div>
-      </div>
-    )
-  }
+  useDocumentMeta(post ? blogPostMeta(post) : { title: `${t.common.postNotFound} | Sion Yoon` })
 
   return (
-    <div className="blog-post" data-theme={theme}>
-      <nav className="navbar">
-        <Link to="/" className="nav-brand">Sion Yoon</Link>
-        <ul className="nav-links">
-          <li>
-            <button className="theme-toggle" onClick={toggleTheme}>
-              {theme === 'light' ? '\u{1F319}' : '\u{2600}\u{FE0F}'}
-            </button>
-          </li>
-          <li>
-            <button className="lang-toggle" onClick={toggleLanguage}>
-              {language === 'en' ? '\uD55C\uAD6D\uC5B4' : 'EN'}
-            </button>
-          </li>
-        </ul>
-      </nav>
-      <div className="container" style={{ paddingTop: '5rem' }}>
-        <Link to="/blog" className="back-link">← Blog</Link>
-        <article className="blog-post-content">
-          <div className="blog-meta">
-            <span className="blog-date">{post.date}</span>
-            <span className="blog-read-time">{Math.max(1, Math.round(post.content.filter(b => typeof b === 'string').join(' ').split(/\s+/).length / 200))} min read</span>
-          </div>
-          <h1>{post.title}</h1>
-          <div className="pub-tags" style={{ marginBottom: '2rem' }}>
-            {post.tags.map(tag => (
-              <span key={tag} className="tag">{tag}</span>
-            ))}
-          </div>
-          {post.content.map((block, i) => renderBlock(block, i))}
-        </article>
-        <div className="blog-comments">
-          <Giscus />
-        </div>
+    <div className="blog-post">
+      <Navbar />
+      <div className="container page-container">
+        <Link to="/blog" className="back-link">← {t.blog.title}</Link>
+        {post ? (
+          <>
+            <article className="blog-post-content">
+              <div className="blog-meta">
+                <span className="blog-date">{post.date}</span>
+                <span className="blog-read-time">{readingTime(post)} min read</span>
+              </div>
+              <h1>{post.title}</h1>
+              <div className="pub-tags" style={{ marginBottom: '2rem' }}>
+                {post.tags.map(tag => (
+                  <span key={tag} className="tag">{tag}</span>
+                ))}
+              </div>
+              {post.content.map((block, i) => renderBlock(block, i))}
+            </article>
+            <div className="blog-comments">
+              <Giscus />
+            </div>
+          </>
+        ) : (
+          <h1>{t.common.postNotFound}</h1>
+        )}
       </div>
     </div>
   )

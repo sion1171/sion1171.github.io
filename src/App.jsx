@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <Navbar home />
 
       <header className="hero">
         <div className="hero-cover" />

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
 * {
   margin: 0;
@@ -26,7 +26,7 @@
   --accent-green: #0f7b6c;
   --accent-purple: #9065b0;
 
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
   line-height: 1.6;
   font-weight: 400;
   color-scheme: light;
@@ -83,7 +83,8 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Noto Serif', Georgia, 'Times New Roman', serif;
+  /* Hangul is pinned to gothic: with lang="ko" the generic serif would fall back to a thin myeongjo */
+  font-family: 'Noto Serif', Georgia, 'Times New Roman', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', serif;
   line-height: 1.3;
   font-weight: 700;
   letter-spacing: -0.01em;

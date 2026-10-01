@@ -210,6 +210,16 @@ export const translations = {
     },
     footer: {
       copyright: '© {{year}} Sion Yoon. All rights reserved.'
+    },
+    common: {
+      back: 'Back',
+      postNotFound: 'Post not found',
+      projectNotFound: 'Project not found',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      darkMode: 'Switch to dark mode',
+      lightMode: 'Switch to light mode',
+      switchLanguage: 'Switch to Korean'
     }
   },
   ko: {
@@ -421,6 +431,16 @@ export const translations = {
     },
     footer: {
       copyright: '© {{year}} 윤시온. All rights reserved.'
+    },
+    common: {
+      back: '뒤로',
+      postNotFound: '글을 찾을 수 없습니다',
+      projectNotFound: '프로젝트를 찾을 수 없습니다',
+      openMenu: '메뉴 열기',
+      closeMenu: '메뉴 닫기',
+      darkMode: '다크 모드로 전환',
+      lightMode: '라이트 모드로 전환',
+      switchLanguage: '영어로 전환'
     }
   }
 }

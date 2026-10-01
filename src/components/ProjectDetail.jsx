@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { projectMeta } from '../data/routes'
+import Navbar from './Navbar'
 import '../App.css'
 
 function ProjectDetail() {
@@ -14,14 +15,15 @@ function ProjectDetail() {
   }, [id])
 
   const project = t.projects?.[id]
-  useDocumentMeta(project ? projectMeta(id, project) : { title: 'Project not found | Sion Yoon' })
+  useDocumentMeta(project ? projectMeta(id, project) : { title: `${t.common.projectNotFound} | Sion Yoon` })
 
   if (!project) {
     return (
       <div className="project-detail">
-        <div className="container">
-          <Link to="/" className="back-link">← Back</Link>
-          <h1>Project not found</h1>
+        <Navbar />
+        <div className="container page-container">
+          <Link to="/" className="back-link">← {t.common.back}</Link>
+          <h1>{t.common.projectNotFound}</h1>
         </div>
       </div>
     )
@@ -29,8 +31,9 @@ function ProjectDetail() {
 
   return (
     <div className="project-detail">
-      <div className="container">
-        <Link to="/" className="back-link">← Back</Link>
+      <Navbar />
+      <div className="container page-container">
+        <Link to="/" className="back-link">← {t.common.back}</Link>
 
         <header className="project-header">
           <span className="project-year">{project.year}</span>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import BlogCard from './BlogCard'
 
 function Blog() {
   const { t } = useLanguage()
@@ -24,25 +25,13 @@ function Blog() {
           <>
             <div className="blog-grid">
               {t.blog.posts.slice(0, 2).map((post, index) => (
-                <Link
-                  to={`/blog/${post.slug}`}
+                <BlogCard
                   key={post.slug}
-                  className={`blog-card scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
+                  post={post}
+                  readMore={t.blog.readMore}
+                  className={`scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}
                   style={{ transitionDelay: `${0.05 + index * 0.05}s` }}
-                >
-                  <div className="blog-meta">
-                    <span className="blog-date">{post.date}</span>
-                    <span className="blog-read-time">{Math.max(1, Math.round(post.content.filter(b => typeof b === 'string').join(' ').split(/\s+/).length / 200))} min read</span>
-                  </div>
-                  <h3>{post.title}</h3>
-                  <p>{post.summary}</p>
-                  <div className="pub-tags">
-                    {post.tags.map(tag => (
-                      <span key={tag} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                  <span className="blog-read-more">{t.blog.readMore}</span>
-                </Link>
+                />
               ))}
             </div>
             <div className={`blog-view-all scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}>

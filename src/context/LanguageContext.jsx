@@ -1,15 +1,22 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { translations } from '../data/translations.js'
+import { getStored, setStored } from '../utils/storage'
 
 const LanguageContext = createContext()
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState(() => getStored('language') === 'ko' ? 'ko' : 'en')
 
   const t = translations[language]
 
+  useEffect(() => {
+    document.documentElement.lang = language
+  }, [language])
+
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'ko' : 'en')
+    const next = language === 'en' ? 'ko' : 'en'
+    setStored('language', next)
+    setLanguage(next)
   }
 
   return (

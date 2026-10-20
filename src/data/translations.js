@@ -55,8 +55,8 @@ export const translations = {
         {
           id: 2,
           title: 'Panorama Image Stitching for Maritime Situational Awareness',
-          description: 'Developed real-time panorama stitching algorithm for autonomous ships using OpenCV and YOLO.',
-          tags: ['Computer Vision', 'OpenCV', 'YOLO'],
+          description: 'Developed a real-time panorama stitching and blending pipeline for autonomous ships with OpenCV and ROS, plus YOLO for object detection.',
+          tags: ['Computer Vision', 'OpenCV', 'ROS', 'YOLO'],
           projectPage: 'panorama',
           year: '2024'
         },
@@ -102,12 +102,68 @@ export const translations = {
       panorama: {
         title: 'Panorama Image Stitching for Maritime Situational Awareness',
         year: '2024',
-        tags: ['Computer Vision', 'OpenCV', 'YOLO', 'Python', 'ROS'],
+        tags: ['Computer Vision', 'OpenCV', 'ROS', 'C++', 'Python', 'YOLO'],
         description: [
-          'Developed a real-time panorama stitching and blending algorithm for autonomous ships as a research intern at Keimyung University.',
-          'The project was fully funded by Korea Research Institute of Ships & Ocean Engineering (KRISO) and aimed to enhance maritime situational awareness by creating seamless 360-degree views from multiple camera feeds.',
-          'Implemented feature detection, image warping, and blending techniques using OpenCV. Integrated YOLO 9 for object detection to identify vessels and obstacles in the stitched panorama.',
-          'The system was designed to work in real-time within ROS (Robot Operating System) environment for autonomous ship navigation.'
+          'Developed a real-time panorama stitching and blending pipeline that merges the two front-view cameras of an autonomous ship into one seamless wide-angle view, as a research intern at the Robotic Intelligence & Perception Lab (RIPL), Keimyung University.',
+          'The project was funded by the Korea Research Institute of Ships & Ocean Engineering (KRISO). Optical cameras give autonomous ships high-resolution colour information, but each camera covers only a narrow field of view compared with radar or lidar, so vessels mount several cameras in a single module. Stitching those feeds into one continuous image is a building block toward full 360-degree situational awareness.',
+          'The pipeline runs as a ROS node written in C++ with OpenCV. It undistorts both frames, aligns them with a homography, blends the seam, and publishes the panorama at roughly 6 frames per second on a laptop-class CPU.'
+        ],
+        sections: [
+          {
+            heading: 'Data and environment',
+            paragraphs: [
+              'Front-view footage was recorded from the test ship\'s two IP cameras through ROS and stored as ROS bag files. Development matched the ship\'s onboard environment: Ubuntu 18.04 LTS with ROS, OpenCV 4.10.0 with contrib modules, and an Intel Core i7-10510U CPU without GPU acceleration.'
+            ],
+            figure: { src: '/projects/panorama/ship-view.webp', caption: 'Fig. 1 — Two front-view cameras mounted at the bow of the test ship' }
+          },
+          {
+            heading: 'Pipeline overview',
+            paragraphs: [
+              'Each synchronized pair of frames passes through four stages. First, distortion correction with each camera\'s calibrated intrinsics. Second, a fixed set of manually selected point correspondences, which is valid because the cameras are rigidly mounted and their relative geometry never changes. Third, a homography estimated with RANSAC that maps the right camera onto the left camera\'s image plane, followed by a perspective warp onto a shared canvas. Fourth, alpha blending across the seam and cropping of the empty borders.',
+              'The left frame is kept as the reference plane and is never warped, so the ship\'s own bow stays fixed in the panorama from frame to frame.'
+            ]
+          },
+          {
+            heading: 'Distortion correction',
+            paragraphs: [
+              'Both wide-angle lenses show noticeable barrel distortion: the horizon bends into a curve. Each camera was calibrated with a checkerboard, and every frame is undistorted with the resulting intrinsic matrix and distortion coefficients before stitching. Stitching the raw frames is possible, but correcting first produced a visibly more natural alignment, so the step became part of the pipeline.'
+            ],
+            figure: { src: '/projects/panorama/distortion-correction.webp', caption: 'Fig. 2 — Checkerboard calibration (left) and the horizon before and after undistortion (right)' }
+          },
+          {
+            heading: 'Finding matching points',
+            paragraphs: [
+              'Automatic feature matchers such as SIFT, ORB, AKAZE and SURF struggled here. Most of a maritime frame is textureless sea and sky, so they returned few and unreliable matches. Instead, correspondences were picked by hand on rigid structures visible in both cameras, such as pylons, storage tanks and moored vessels, collecting about 190 point pairs across several frames.'
+            ],
+            figure: { src: '/projects/panorama/match-point.webp', caption: 'Fig. 3 — Manually selected correspondences between ipcam 1 (top) and ipcam 2 (bottom)' }
+          },
+          {
+            heading: 'Stitching',
+            paragraphs: [
+              'From those correspondences a 3×3 homography is estimated with RANSAC using a 10-pixel reprojection threshold. The right camera image is warped with it onto the left camera\'s plane, producing the trapezoid shape in Fig. 4, and both frames are placed on one canvas twice the width of a single image.'
+            ],
+            figure: { src: '/projects/panorama/warp-example.webp', caption: 'Fig. 4 — Reference image A and warped image B on the shared canvas' }
+          },
+          {
+            heading: 'Blending',
+            paragraphs: [
+              'Without blending the junction is obvious: a hard vertical seam and a brightness step between the two cameras. A 400-pixel linear alpha ramp centred on the seam is applied as a weight mask to each image, the weighted images are summed, and the black margins left by the warp are cropped away. The seam disappears and the exposure difference fades smoothly from one camera into the other.'
+            ],
+            figure: { src: '/projects/panorama/blending-before-after.webp', caption: 'Fig. 5 — Two scenes before (top) and after (bottom) blending' }
+          },
+          {
+            heading: 'Results',
+            paragraphs: [
+              'On the recorded data the panorama roughly doubles the horizontal field of view while keeping the horizon continuous across both cameras. Measured over 26 consecutive frame pairs on the i7-10510U, the full callback from decoding to publishing took 158 ms on average (143–178 ms), of which stitching and blending accounted for about 129 ms. That is roughly 6 frames per second, and the timing is stable from frame to frame because neither the homography nor the blend masks depend on image content.',
+              'On top of the stitched panorama, YOLOv9 was integrated for object detection to identify vessels and obstacles in the combined view.'
+            ]
+          },
+          {
+            heading: 'Limitations and next steps',
+            paragraphs: [
+              'The prototype is tied to one camera rig: the correspondences and calibration are hard-coded, and the homography is re-estimated every frame even though its inputs never change, so computing it once at start-up would cut most of the per-frame cost. The alpha ramp also sits at a fixed position rather than following the overlap defined by the homography. Extending the pipeline from two cameras to the full camera module is the natural next step toward a true 360-degree view.'
+            ]
+          }
         ],
         youtube: 'https://www.youtube.com/watch?v=uL4adLGIFfU&t=3s'
       }
@@ -276,8 +332,8 @@ export const translations = {
         {
           id: 2,
           title: '해양 상황 인식을 위한 파노라마 이미지 스티칭',
-          description: 'OpenCV와 YOLO를 활용한 자율운항 선박용 실시간 파노라마 스티칭 알고리즘 개발.',
-          tags: ['Computer Vision', 'OpenCV', 'YOLO'],
+          description: 'OpenCV와 ROS로 자율운항 선박용 실시간 파노라마 스티칭·블렌딩 파이프라인을 개발하고, YOLO 객체 탐지를 결합.',
+          tags: ['Computer Vision', 'OpenCV', 'ROS', 'YOLO'],
           projectPage: 'panorama',
           year: '2024'
         },
@@ -323,12 +379,68 @@ export const translations = {
       panorama: {
         title: '해양 상황 인식을 위한 파노라마 이미지 스티칭',
         year: '2024',
-        tags: ['Computer Vision', 'OpenCV', 'YOLO', 'Python', 'ROS'],
+        tags: ['Computer Vision', 'OpenCV', 'ROS', 'C++', 'Python', 'YOLO'],
         description: [
-          '계명대학교 연구 인턴으로서 자율운항 선박을 위한 실시간 파노라마 스티칭 및 블렌딩 알고리즘을 개발했습니다.',
-          '이 프로젝트는 한국해양과학기술원(KRISO)의 전액 지원을 받았으며, 여러 카메라 피드에서 매끄러운 360도 뷰를 생성하여 해양 상황 인식을 향상시키는 것을 목표로 했습니다.',
-          'OpenCV를 사용하여 특징 검출, 이미지 워핑 및 블렌딩 기법을 구현했습니다. YOLO 9를 통합하여 스티칭된 파노라마에서 선박과 장애물을 식별했습니다.',
-          '시스템은 자율운항 선박 내비게이션을 위해 ROS(Robot Operating System) 환경에서 실시간으로 작동하도록 설계되었습니다.'
+          '계명대학교 Robotic Intelligence & Perception Lab(RIPL) 연구 인턴으로서, 자율운항 선박의 전방 카메라 두 대 영상을 이음새 없는 하나의 광각 영상으로 합치는 실시간 파노라마 스티칭·블렌딩 파이프라인을 개발했습니다.',
+          '이 프로젝트는 선박해양플랜트연구소(KRISO)의 지원을 받았습니다. 광학 카메라는 자율운항 선박에 고해상도 컬러 정보를 제공하지만, 레이더나 라이다에 비해 카메라 한 대의 시야각이 좁아 여러 대를 한 모듈로 묶어 설치합니다. 이 영상들을 하나의 연속된 화면으로 합치는 것은 360도 상황 인식으로 가는 기본 단계입니다.',
+          '파이프라인은 C++과 OpenCV로 작성한 ROS 노드로 동작합니다. 두 프레임의 왜곡을 보정하고, 호모그래피로 정렬한 뒤 이음새를 블렌딩하여, 노트북급 CPU에서 초당 약 6프레임으로 파노라마를 발행합니다.'
+        ],
+        sections: [
+          {
+            heading: '데이터와 개발 환경',
+            paragraphs: [
+              '시험선의 IP 카메라 두 대에서 ROS를 통해 전방 영상을 수집하고 ROS bag 파일로 저장했습니다. 개발 환경은 선박 탑재 환경에 맞춰 Ubuntu 18.04 LTS + ROS, OpenCV 4.10.0 + contrib 모듈, GPU 가속 없는 Intel Core i7-10510U CPU로 구성했습니다.'
+            ],
+            figure: { src: '/projects/panorama/ship-view.webp', caption: '그림 1 — 시험선 선수에 장착된 전방 카메라 두 대' }
+          },
+          {
+            heading: '파이프라인 개요',
+            paragraphs: [
+              '동기화된 프레임 쌍마다 네 단계를 거칩니다. 첫째, 각 카메라의 캘리브레이션 내부 파라미터로 왜곡을 보정합니다. 둘째, 수동으로 선정한 고정 대응점 집합을 사용합니다. 카메라가 선체에 고정되어 상대 기하가 변하지 않기 때문에 가능한 방식입니다. 셋째, RANSAC으로 추정한 호모그래피로 오른쪽 카메라 영상을 왼쪽 카메라의 영상 평면으로 사상하고 공통 캔버스에 원근 워핑합니다. 넷째, 이음새 구간을 알파 블렌딩하고 빈 테두리를 잘라냅니다.',
+              '왼쪽 프레임은 기준 평면으로 두고 워핑하지 않기 때문에, 자선의 선수 위치가 매 프레임 파노라마 안에서 고정됩니다.'
+            ]
+          },
+          {
+            heading: '왜곡 보정',
+            paragraphs: [
+              '두 광각 렌즈 모두 수평선이 휘어 보일 정도의 배럴 왜곡이 있습니다. 체커보드로 각 카메라를 캘리브레이션하고, 얻은 내부 행렬과 왜곡 계수로 스티칭 전에 모든 프레임을 보정합니다. 원본 그대로도 스티칭은 가능하지만, 먼저 보정했을 때 정렬이 눈에 띄게 자연스러워 파이프라인의 한 단계로 포함했습니다.'
+            ],
+            figure: { src: '/projects/panorama/distortion-correction.webp', caption: '그림 2 — 체커보드 캘리브레이션(왼쪽)과 보정 전후의 수평선(오른쪽)' }
+          },
+          {
+            heading: '대응점 찾기',
+            paragraphs: [
+              'SIFT, ORB, AKAZE, SURF 같은 자동 특징 매칭은 이 환경에서 잘 동작하지 않았습니다. 해상 영상은 대부분 질감이 없는 바다와 하늘이라 매칭이 적고 신뢰도도 낮았습니다. 대신 두 카메라에 모두 보이는 송전탑, 저장 탱크, 정박 선박 같은 고정 구조물 위에서 대응점을 직접 찍었고, 여러 프레임에 걸쳐 약 190쌍을 모았습니다.'
+            ],
+            figure: { src: '/projects/panorama/match-point.webp', caption: '그림 3 — ipcam 1(위)과 ipcam 2(아래) 사이에 수동으로 선정한 대응점' }
+          },
+          {
+            heading: '스티칭',
+            paragraphs: [
+              '이 대응점들로부터 재투영 임계값 10픽셀의 RANSAC으로 3×3 호모그래피를 추정합니다. 오른쪽 카메라 영상을 이 행렬로 왼쪽 카메라 평면에 워핑하면 그림 4와 같은 사다리꼴이 되고, 두 프레임을 단일 영상의 두 배 폭인 캔버스 위에 배치합니다.'
+            ],
+            figure: { src: '/projects/panorama/warp-example.webp', caption: '그림 4 — 공통 캔버스 위의 기준 영상 A와 워핑된 영상 B' }
+          },
+          {
+            heading: '블렌딩',
+            paragraphs: [
+              '블렌딩 전에는 경계가 뚜렷합니다. 세로 이음새가 그대로 보이고 두 카메라 사이의 밝기 차이가 단차로 나타납니다. 이음새를 중심으로 폭 400픽셀의 선형 알파 램프를 각 영상에 가중치 마스크로 적용하고, 가중된 두 영상을 더한 뒤 워핑으로 생긴 검은 여백을 잘라냅니다. 그 결과 이음새가 사라지고 노출 차이가 한 카메라에서 다른 카메라로 부드럽게 이어집니다.'
+            ],
+            figure: { src: '/projects/panorama/blending-before-after.webp', caption: '그림 5 — 두 장면의 블렌딩 전(위)과 후(아래)' }
+          },
+          {
+            heading: '결과',
+            paragraphs: [
+              '수집 데이터에서 파노라마는 수평선을 두 카메라에 걸쳐 연속으로 유지하면서 수평 시야각을 대략 두 배로 넓혔습니다. i7-10510U에서 연속 26쌍의 프레임을 측정한 결과, 디코딩부터 발행까지 전체 콜백은 평균 158ms(143–178ms)였고 그중 스티칭과 블렌딩이 약 129ms를 차지했습니다. 초당 약 6프레임에 해당하며, 호모그래피와 블렌딩 마스크가 영상 내용에 의존하지 않아 프레임 간 처리 시간이 안정적입니다.',
+              '스티칭된 파노라마 위에 YOLOv9 객체 탐지를 결합하여 합성 화면에서 선박과 장애물을 식별했습니다.'
+            ]
+          },
+          {
+            heading: '한계와 다음 단계',
+            paragraphs: [
+              '이 프로토타입은 특정 카메라 구성에 묶여 있습니다. 대응점과 캘리브레이션 값이 코드에 고정되어 있고, 입력이 바뀌지 않는데도 호모그래피를 매 프레임 다시 추정하므로 시작 시 한 번만 계산하면 프레임당 비용을 크게 줄일 수 있습니다. 알파 램프도 호모그래피가 정의하는 겹침 영역을 따르지 않고 고정 위치에 놓입니다. 카메라 두 대에서 전체 카메라 모듈로 확장하는 것이 진정한 360도 뷰를 향한 다음 단계입니다.'
+            ]
+          }
         ],
         youtube: 'https://www.youtube.com/watch?v=uL4adLGIFfU&t=3s'
       }

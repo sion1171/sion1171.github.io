@@ -1108,6 +1108,32 @@ footer {
   color: var(--text-secondary);
 }
 
+.project-content h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 2.5rem 0 0.9rem;
+  color: var(--text-primary);
+  font-family: 'Inter', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+}
+
+.project-content .project-figure {
+  margin: 1.5rem 0 2rem;
+}
+
+.project-content .project-figure img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  background: #ffffff;
+}
+
+.project-content .project-figure figcaption {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
 .project-images {
   display: flex;
   gap: 1rem;

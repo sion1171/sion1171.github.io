@@ -49,6 +49,21 @@ function ProjectDetail() {
           {project.description.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
+
+          {project.sections?.map((section, index) => (
+            <div key={index}>
+              {section.heading && <h2>{section.heading}</h2>}
+              {section.paragraphs?.map((paragraph, pIndex) => (
+                <p key={pIndex}>{paragraph}</p>
+              ))}
+              {section.figure && (
+                <figure className="project-figure">
+                  <img src={section.figure.src} alt={section.figure.alt || section.figure.caption || ''} loading="lazy" decoding="async" />
+                  {section.figure.caption && <figcaption>{section.figure.caption}</figcaption>}
+                </figure>
+              )}
+            </div>
+          ))}
         </section>
 
         {project.images && project.images.length > 0 && (

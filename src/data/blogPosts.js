@@ -163,5 +163,61 @@ export const blogPosts = [
 
       'Take care of your brain. Like Khare said: it\'s the only one you\'ve got.'
     ]
+  },
+  {
+    slug: 'maritime-panorama-stitching',
+    date: '2024-07-26',
+    title: 'Stitching Two Ship Cameras Into One View',
+    summary: 'What I learned building a real-time panorama pipeline for an autonomous ship as a research intern — and why the textbook feature matchers never stood a chance at sea.',
+    tags: ['Computer Vision', 'OpenCV', 'ROS', 'Autonomous Ships'],
+    content: [
+      'This summer I spent my research internship at the Robotic Intelligence & Perception Lab (RIPL) at Keimyung University, on a project funded by the Korea Research Institute of Ships & Ocean Engineering (KRISO). The brief sounded simple: take the two front-facing cameras on an autonomous test ship and turn them into one wide picture, in real time, on the hardware already on board. It turned out to be a nice lesson in how much of computer vision is about the environment rather than the algorithm.',
+
+      'Autonomous ships lean on a stack of sensors for situational awareness: AIS, radar, lidar, and cameras. Cameras are the only ones that give you colour and fine detail, but each one sees a narrow slice of the world compared with radar. So ships carry several of them in one module, and someone has to make those feeds look like a single view. That someone was me, for two cameras to start with.',
+
+      { type: 'image', src: '/blog/panorama-ship-view.webp', alt: 'Two front-view cameras at the bow of the test ship', caption: 'The two front-view cameras at the bow of the test ship, and what each of them sees.' },
+
+      '## The setup',
+
+      'Everything ran through ROS. Footage from the two IP cameras was recorded into ROS bag files, and the stitcher itself is a ROS node written in C++ with OpenCV 4.10 that subscribes to both compressed image topics, synchronizes them by timestamp, and publishes a panorama for each pair. I developed against the same environment the ship runs: Ubuntu 18.04, an Intel Core i7-10510U laptop CPU, and no GPU. That last constraint shaped most of the decisions below.',
+
+      '## Step one: straighten the horizon',
+
+      'The first thing you notice in raw footage from these wide-angle lenses is that the horizon is curved. Barrel distortion is harmless when you look at one camera, but the moment you try to align two of them the curves fight each other. I calibrated each camera with a checkerboard and undistort every frame with the resulting intrinsics and distortion coefficients before anything else happens. You can stitch without this step, and I tried, but the result with it was visibly more natural, so it stayed.',
+
+      { type: 'image', src: '/blog/panorama-distortion-correction.webp', alt: 'Checkerboard calibration and the horizon before and after undistortion', caption: 'Checkerboard calibration for each camera (left), and the horizon before and after undistortion (right). The red line is straight after correction.' },
+
+      '## Step two: where the textbook broke',
+
+      'The textbook recipe for panoramas is: detect features, match them, estimate a homography, warp. I went through the usual suspects — SIFT, ORB, AKAZE, SURF — and they all did badly. Not slightly worse than on land; badly enough to be unusable. The reason is obvious in hindsight. Most of a maritime frame is sea and sky. Waves are texture, but not repeatable texture, and the sky has none at all. The handful of structures that do give stable features — a coastline, a pylon, a moored tanker — occupy a thin strip in the middle of the frame, and the matchers happily produced confident matches on wave crests that had nothing to do with each other.',
+
+      'So I did the unglamorous thing and picked correspondences by hand. The cameras are bolted to the hull, so their relative geometry never changes; a homography estimated once is valid for every frame. I went through several frames and marked points on rigid things visible from both cameras — transmission towers, storage tanks, the hulls of vessels at berth — until I had about 190 pairs. It is not elegant, but it is correct, and it is the kind of trade-off a fixed camera rig actually allows.',
+
+      { type: 'image', src: '/blog/panorama-match-point.webp', alt: 'Manually selected correspondences between the two cameras', caption: 'Hand-picked correspondences between ipcam 1 (top) and ipcam 2 (bottom), on a pylon and on moored ships.' },
+
+      '## Step three: stitching',
+
+      'From those pairs I estimate a 3×3 homography with RANSAC and a 10-pixel reprojection threshold, mapping the right camera onto the image plane of the left one. The left frame is the reference and is never warped, which has a pleasant side effect: the ship\'s own bow stays in the same place in every panorama, so the output feels stable to a human operator. The right frame is warped with `warpPerspective` onto a canvas twice the width of a single image, which gives it the trapezoid shape below.',
+
+      { type: 'image', src: '/blog/panorama-warp-example.webp', alt: 'Reference image A and warped image B on the shared canvas', caption: 'The reference image A stays put; image B is warped onto A\'s plane.' },
+
+      '## Step four: hiding the seam',
+
+      'At this point the geometry is right and the picture still looks wrong. There is a hard vertical seam where the frames meet, and the two cameras never agree on exposure, so one half is always a little brighter than the other. The fix is a plain alpha blend: a 400-pixel linear ramp centred on the seam is used as a weight mask for each image, the two weighted images are summed, and the black margins left over from the warp are cropped away. The seam disappears and the exposure difference turns into a gradient nobody notices.',
+
+      { type: 'image', src: '/blog/panorama-blending-before-after.webp', alt: 'Two scenes before and after blending', caption: 'Two scenes before (top) and after (bottom) blending. The seam and the brightness step are gone.' },
+
+      '## Did it run in real time?',
+
+      'Close enough for the use case. Over 26 consecutive frame pairs on the i7-10510U, the full callback from decoding the two compressed images to publishing the panorama took 158 ms on average, between 143 and 178 ms. Stitching and blending accounted for about 129 ms of that. That is roughly 6 frames per second with no GPU, and the number barely moves from frame to frame because neither the homography nor the blend masks depend on what is in the picture. On top of the stitched view we also ran YOLOv9 to pick out vessels and obstacles, which is the part the ship actually cares about.',
+
+      '## What I would change',
+
+      'The prototype is honest about being a prototype. The correspondences and the calibration values are hard-coded for this exact rig, so moving a camera by a centimetre means picking points again. The homography is re-estimated on every frame even though its inputs never change; computing it once at start-up would remove most of the per-frame cost for free. And the alpha ramp sits at a fixed position rather than following the overlap region the homography actually defines, which will bite the moment the geometry changes.',
+
+      'The bigger lesson was about matching. I came in assuming that the feature detector was the solved part of the problem and the blending would be the hard part. It was the other way round. The sea is a hostile place for anything that relies on texture, and knowing when to stop fighting the algorithm and use the constraints you have — here, a rigid camera mount — saved the project.',
+
+      'Two cameras is a start. The full module on the ship has more, and extending this into a true 360-degree view is the obvious next step.'
+    ]
   }
 ]

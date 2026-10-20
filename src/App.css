@@ -1116,6 +1116,17 @@ footer {
   font-family: 'Inter', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
 }
 
+.project-content .project-read-more {
+  color: var(--text-primary);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.project-content .project-read-more:hover {
+  border-bottom-color: var(--text-primary);
+}
+
 .project-content .project-figure {
   margin: 1.5rem 0 2rem;
 }

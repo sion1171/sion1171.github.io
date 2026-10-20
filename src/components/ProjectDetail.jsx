@@ -50,6 +50,12 @@ function ProjectDetail() {
             <p key={index}>{paragraph}</p>
           ))}
 
+          {project.readMore && (
+            <p>
+              <Link to={project.readMore.to} className="project-read-more">{project.readMore.label}</Link>
+            </p>
+          )}
+
           {project.sections?.map((section, index) => (
             <div key={index}>
               {section.heading && <h2>{section.heading}</h2>}

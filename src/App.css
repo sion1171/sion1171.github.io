@@ -800,7 +800,7 @@
 
 /* ===== GitHub Activity ===== */
 .github-activity {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
 }
 
 .github-calendar-wrapper {
@@ -991,6 +991,14 @@
 }
 
 /* ===== Contact ===== */
+.room-section {
+  background: var(--bg-primary);
+}
+
+.room-section .blog-subtitle {
+  word-break: keep-all;
+}
+
 .contact {
   background: var(--bg-primary);
   text-align: left;

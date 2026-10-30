@@ -205,6 +205,11 @@ export const translations = {
       title: 'Contact',
       intro: 'Feel free to reach out!'
     },
+    roomPreview: {
+      title: "Sion's Room",
+      subtitle: 'A tiny pixel-art version of this site. Come on in!',
+      press: 'PRESS START'
+    },
     github: {
       title: 'GitHub Activity',
       totalCount: '{{count}} contributions in the last year'
@@ -479,6 +484,11 @@ export const translations = {
     contact: {
       title: '연락처',
       intro: '궁금한 점이 있으시면 연락해 주세요!'
+    },
+    roomPreview: {
+      title: '시온의 방',
+      subtitle: '이 사이트를 작은 픽셀 방으로 옮겨 놨어요. 들어와 보세요!',
+      press: 'PRESS START'
     },
     github: {
       title: 'GitHub 활동',

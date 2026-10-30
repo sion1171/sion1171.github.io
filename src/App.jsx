@@ -7,6 +7,7 @@ import Publications from './components/Publications'
 import Resume from './components/Resume'
 import GitHubActivity from './components/GitHubActivity'
 import Blog from './components/Blog'
+import RoomSection from './components/RoomSection'
 import Contact from './components/Contact'
 import { useDocumentMeta } from './hooks/useDocumentMeta'
 import './App.css'
@@ -41,6 +42,7 @@ function App() {
         <Publications />
         <Resume />
         <Blog />
+        <RoomSection />
         <GitHubActivity />
         <Contact />
       </main>

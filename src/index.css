@@ -70,6 +70,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Form controls don't inherit the page font by default (nav buttons were falling back to Arial) */
+button {
+  font-family: inherit;
+}
+
 a {
   color: var(--text-primary);
   text-decoration: underline;

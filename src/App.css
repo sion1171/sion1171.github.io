@@ -67,6 +67,13 @@
   background: var(--bg-hover);
 }
 
+/* Emoji glyphs are taller than the text; keep them from stretching the nav item */
+.nav-emoji {
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
 .lang-toggle {
   background: none !important;
   color: var(--text-muted) !important;
@@ -143,6 +150,17 @@
   z-index: 1;
   margin-bottom: 1.5rem;
   line-height: 1;
+}
+
+/* Hidden entry to /room — no visual change until hovered */
+.hero-icon-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.hero-icon-link:hover {
+  transform: rotate(-8deg) scale(1.08);
 }
 
 .hero-content {

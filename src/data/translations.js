@@ -7,7 +7,8 @@ export const translations = {
       publications: 'Publications',
       resume: 'Resume',
       blog: 'Blog',
-      contact: 'Contact'
+      contact: 'Contact',
+      room: 'Room'
     },
     hero: {
       name: "Hi 👋, I'm Sion",
@@ -220,6 +221,58 @@ export const translations = {
       darkMode: 'Switch to dark mode',
       lightMode: 'Switch to light mode',
       switchLanguage: 'Switch to Korean'
+    },
+    room: {
+      title: "Sion's Room",
+      enter: "Enter Sion's room",
+      back: 'Back to site',
+      hintKeys: 'Arrow keys / WASD to move · E or Space to interact',
+      hintTouch: 'Tap the floor to walk · tap an object to use it',
+      open: 'Open',
+      close: 'Close',
+      objects: {
+        projects: 'Desk — Projects',
+        blog: 'Bookshelf — Blog',
+        education: 'Diploma — Education & Experience',
+        contact: 'Mailbox — Contact',
+        window: 'Window — switch day / night',
+        plant: 'Plant',
+        exit: 'Door — back to site'
+      },
+      plantSays: 'Meet my plant buddy! 🌱',
+      daySays: 'Good morning! ☀️',
+      nightSays: 'Getting dark… 🌙',
+      educationTitle: 'Education',
+      experienceTitle: 'Experience',
+      guideTitle: 'Room guide',
+      guideHint: 'Hover to spot it · click to walk there',
+      found: '{{n}} / {{total}} found',
+      allFound: 'You found everything! 🎉',
+      replayIntro: 'Show the intro again',
+      descriptions: {
+        projects: 'Things I have built',
+        blog: 'What I write about',
+        education: 'Where I studied and worked',
+        contact: 'Say hi!',
+        window: 'Switch day ↔ night',
+        plant: 'Just a plant… or is it?',
+        exit: 'Back to the main site'
+      },
+      speaker: 'Sion',
+      tour: {
+        hello: "Hi, I'm Sion! 👋",
+        welcome: 'Welcome to my room. Let me show you around!',
+        desk: 'My projects live on this desk.',
+        blog: 'The bookshelf holds my blog posts.',
+        education: 'That frame has my education and experience.',
+        contact: 'Want to say hi? Drop a note in the mailbox!',
+        window: 'The window switches between day and night.',
+        ready: "Click anything and I'll walk over. Ready?",
+        welcomeBack: 'Welcome back! 👋'
+      },
+      start: 'START!',
+      skip: 'Skip',
+      continueHint: 'Click or press Space to continue'
     }
   },
   ko: {
@@ -228,7 +281,8 @@ export const translations = {
       publications: '연구/프로젝트',
       resume: '이력',
       blog: '블로그',
-      contact: '연락처'
+      contact: '연락처',
+      room: '방'
     },
     hero: {
       name: '안녕하세요 👋 윤시온입니다',
@@ -441,6 +495,58 @@ export const translations = {
       darkMode: '다크 모드로 전환',
       lightMode: '라이트 모드로 전환',
       switchLanguage: '영어로 전환'
+    },
+    room: {
+      title: '시온의 방',
+      enter: '시온의 방에 들어가기',
+      back: '사이트로 돌아가기',
+      hintKeys: '방향키 / WASD로 이동 · E 또는 스페이스로 상호작용',
+      hintTouch: '바닥을 눌러 이동 · 물건을 눌러 사용',
+      open: '열기',
+      close: '닫기',
+      objects: {
+        projects: '책상 — 프로젝트',
+        blog: '책장 — 블로그',
+        education: '졸업장 — 학력과 경력',
+        contact: '우편함 — 연락처',
+        window: '창문 — 낮 / 밤 바꾸기',
+        plant: '화분',
+        exit: '문 — 사이트로 돌아가기'
+      },
+      plantSays: '제 식물 친구예요! 🌱',
+      daySays: '좋은 아침이에요! ☀️',
+      nightSays: '벌써 밤이네요… 🌙',
+      educationTitle: '학력',
+      experienceTitle: '경력',
+      guideTitle: '방 안내',
+      guideHint: '올리면 위치를 알려주고, 누르면 걸어가요',
+      found: '{{n}} / {{total}} 발견',
+      allFound: '전부 찾았어요! 🎉',
+      replayIntro: '인사말 다시 보기',
+      descriptions: {
+        projects: '제가 만든 것들',
+        blog: '제가 쓴 글',
+        education: '공부하고 일한 곳',
+        contact: '편하게 연락 주세요!',
+        window: '낮 ↔ 밤 바꾸기',
+        plant: '그냥 화분… 일까요?',
+        exit: '사이트로 돌아가기'
+      },
+      speaker: '시온',
+      tour: {
+        hello: '안녕하세요, 시온이에요! 👋',
+        welcome: '제 방에 오신 걸 환영해요. 잠깐 구경시켜 드릴게요!',
+        desk: '책상에는 제가 만든 프로젝트가 있어요.',
+        blog: '책장에는 제가 쓴 글이 꽂혀 있어요.',
+        education: '액자에는 학력과 경력이 걸려 있어요.',
+        contact: '연락하고 싶으면 우편함으로 편지 주세요!',
+        window: '창문을 누르면 낮과 밤이 바뀌어요.',
+        ready: '궁금한 걸 누르면 제가 가서 열어드릴게요. 준비됐나요?',
+        welcomeBack: '또 오셨네요! 👋'
+      },
+      start: '시작!',
+      skip: '건너뛰기',
+      continueHint: '클릭하거나 스페이스를 눌러 계속'
     }
   }
 }

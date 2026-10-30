@@ -1,5 +1,6 @@
 import { useLanguage } from '../context/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { contactLinks } from '../data/contact'
 
 function Contact() {
   const { t } = useLanguage()
@@ -15,11 +16,7 @@ function Contact() {
         </p>
 
         <div className="contact-info">
-          {[
-            { icon: '✉️', href: 'mailto:makeryoon1171@gmail.com', text: 'makeryoon1171@gmail.com' },
-            { icon: '🔗', href: 'https://github.com/sion1171', text: 'GitHub', external: true },
-            { icon: '💼', href: 'https://www.linkedin.com/in/sion-yoon-135181246', text: 'LinkedIn', external: true },
-          ].map((item, index) => (
+          {contactLinks.map((item, index) => (
             <div
               key={item.text}
               className={`contact-item scroll-hidden ${isVisible ? 'scroll-visible' : ''}`}

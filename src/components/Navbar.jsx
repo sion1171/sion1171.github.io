@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { useTheme } from '../context/ThemeContext'
 import { scrollToSection, scrollToTop } from '../utils/scroll'
@@ -11,6 +11,7 @@ function Navbar({ home = false }) {
   const [isOpen, setIsOpen] = useState(false)
   const { language, toggleLanguage, t } = useLanguage()
   const { theme, toggleTheme } = useTheme()
+  const navigate = useNavigate()
 
   const scrollTo = (id) => {
     scrollToSection(id)
@@ -70,6 +71,8 @@ function Navbar({ home = false }) {
         {SECTIONS.map(id => (
           <li key={id}><button onClick={() => scrollTo(id)}>{t.nav[id]}</button></li>
         ))}
+        {/* A button like its siblings so it lines up exactly; it navigates instead of scrolling */}
+        <li><button onClick={() => navigate('/room')} title={t.room.enter}><span className="nav-emoji" aria-hidden="true">🕹️</span> {t.nav.room}</button></li>
         {toggles}
       </ul>
     </nav>

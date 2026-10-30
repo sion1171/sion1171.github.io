@@ -32,11 +32,18 @@ export const projectMeta = (id, project) => ({
   description: project.description[0],
 })
 
+export const roomMeta = (t = translations.en) => ({
+  path: '/room',
+  title: `${t.room.title} | Sion Yoon`,
+  description: 'A tiny pixel-art room to explore Sion Yoon\'s projects, blog, and resume.',
+})
+
 export function getAllRoutes() {
   const latestPost = blogPosts.map(p => p.date).sort().at(-1)
   return [
     homeMeta,
     { ...blogListMeta(), lastmod: latestPost },
+    roomMeta(),
     ...blogPosts.map(blogPostMeta),
     ...Object.entries(translations.en.projects).map(([id, project]) => projectMeta(id, project)),
   ]

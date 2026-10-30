@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useLanguage } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import TypeWriter from './components/TypeWriter'
@@ -20,7 +21,9 @@ function App() {
 
       <header className="hero">
         <div className="hero-cover" />
-        <div className="hero-icon">👨‍💻</div>
+        <div className="hero-icon">
+          <Link to="/room" className="hero-icon-link" title={t.room.enter} aria-label={t.room.enter}>👨‍💻</Link>
+        </div>
         <div className="hero-content">
           <h1>
             <TypeWriter

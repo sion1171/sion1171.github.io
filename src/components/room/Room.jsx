@@ -416,9 +416,16 @@ function Room() {
           <div className="room-hud">
             {cutscene ? (
               <div className="room-cutscene-hud">
-                <span className="room-hint">{talking ? t.room.continueHint : '…'}</span>
+                {talking ? (
+                  <span className="room-hint">
+                    <span className="room-hint-keys">{t.room.continueHint}</span>
+                    <span className="room-hint-touch">{t.room.continueHintTouch}</span>
+                  </span>
+                ) : (
+                  <span className="room-hint">…</span>
+                )}
                 <button className="room-skip" onClick={() => skipRef.current()}>
-                  {t.room.skip} <span className="room-key">Esc</span>
+                  {t.room.skip} <span className="room-key room-hint-keys">Esc</span>
                 </button>
               </div>
             ) : nearby ? (

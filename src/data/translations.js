@@ -272,7 +272,8 @@ export const translations = {
       },
       start: 'START!',
       skip: 'Skip',
-      continueHint: 'Click or press Space to continue'
+      continueHint: 'Click or press Space to continue',
+      continueHintTouch: 'Tap to continue'
     }
   },
   ko: {
@@ -546,7 +547,8 @@ export const translations = {
       },
       start: '시작!',
       skip: '건너뛰기',
-      continueHint: '클릭하거나 스페이스를 눌러 계속'
+      continueHint: '클릭하거나 스페이스를 눌러 계속',
+      continueHintTouch: '화면을 탭해서 계속'
     }
   }
 }

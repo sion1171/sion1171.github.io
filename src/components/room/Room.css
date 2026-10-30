@@ -111,7 +111,8 @@
 }
 
 @media (hover: none) {
-  .room-hint-keys {
+  .room-hint-keys,
+  .room-skip .room-key {
     display: none;
   }
 

@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender-routes.js",
+    "build": "node scripts/fetch-github-contributions.js && vite build && node scripts/prerender-routes.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.0",
+    "react-activity-calendar": "^3.1.1",
     "react-dom": "^19.2.0",
-    "react-github-calendar": "^5.0.5",
     "react-router-dom": "^7.13.0"
   },
   "devDependencies": {

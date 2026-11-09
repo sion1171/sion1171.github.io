@@ -27,6 +27,14 @@ export const translations = {
       view: 'View →',
       items: [
         {
+          id: 6,
+          title: 'A Facilitator-Led Multi-Agent Avatar Toolkit for Group Interaction Experiments in Qualtrics',
+          description: 'An open-source toolkit that turns a single Qualtrics question into a group conversation between a participant, an AI facilitator, and two AI personas with real-time, lip-synced avatars. Under review; preprint coming soon.',
+          tags: ['Human-AI Interaction', 'Multi-Agent', 'LLM', 'Avatars', 'Qualtrics'],
+          projectPage: 'multi-agent-avatar',
+          year: '2026 · Under review'
+        },
+        {
           id: 4,
           title: 'Tridge Eye: My Curation - AI Market Intelligence Chatbot',
           description: 'Built the AI chatbot and algorithms for "My Curation," a feature that instantly translates a single question into a hyper-personalized market radar — from questions to clear export strategies in one click for the global agrifood industry.',
@@ -72,6 +80,40 @@ export const translations = {
       ]
     },
     projects: {
+      'multi-agent-avatar': {
+        title: 'A Facilitator-Led Multi-Agent Avatar Toolkit for Group Interaction Experiments in Qualtrics',
+        year: '2026 · Under review',
+        tags: ['Human-AI Interaction', 'Multi-Agent', 'LLM', 'Avatars', 'Qualtrics', 'JavaScript'],
+        description: [
+          'An open-source toolkit that turns a single Qualtrics survey question into a small-group conversation: one human participant, an AI facilitator, and two AI personas who appear as real-time, lip-synced avatars.',
+          'Built with Dr. Yoo Jung (Erika) Oh at Michigan State University. The paper is under review, and a preprint is coming soon.'
+        ],
+        sections: [
+          {
+            heading: 'The problem',
+            paragraphs: [
+              'Chatbots embedded in surveys have made conversational experiments easy to run, but almost all of them are one-on-one and text-only. Questions about groups (peer support, social influence, emotions spreading through a conversation) need several AI speakers who look distinct, respond to each other, and never talk over one another.'
+            ]
+          },
+          {
+            heading: 'What the participant sees',
+            figure: {
+              src: '/projects/multi-agent-avatar/ui.jpg',
+              alt: 'Chat interface with two avatar video tiles on the left and a shared group transcript on the right',
+              caption: 'Two avatar personas on the left, the shared conversation on the right. The facilitator opens each round, the personas reply in turn, and then the participant writes.'
+            }
+          },
+          {
+            heading: 'How it works',
+            paragraphs: [
+              'Runs inside Qualtrics. The whole toolkit is one JavaScript file pasted into a survey question, with no server and no build step.',
+              'Turns are gated by the avatars. A persona\'s text appears when its avatar starts speaking, and the next speaker waits until it stops, so turns never overlap.',
+              'Fair comparison by design. A text-only condition reproduces the same waits with timers, so the only difference between conditions is whether the personas have faces.',
+              'Everything is logged. The transcript, timings, and each persona\'s emotion are saved back to the survey data after every turn.'
+            ]
+          }
+        ]
+      },
       'my-curation': {
         title: 'Tridge Eye: My Curation - AI Market Intelligence Chatbot',
         year: '2026',
@@ -307,6 +349,14 @@ export const translations = {
       view: '보기 →',
       items: [
         {
+          id: 6,
+          title: 'Qualtrics 그룹 상호작용 실험을 위한 퍼실리테이터 주도 멀티 에이전트 아바타 툴킷',
+          description: 'Qualtrics 질문 하나를 참가자, AI 퍼실리테이터, 실시간 립싱크 아바타를 가진 AI 페르소나 둘이 함께하는 그룹 대화로 바꿔 주는 오픈소스 툴킷. 심사 중이며 프리프린트 공개 예정.',
+          tags: ['Human-AI Interaction', 'Multi-Agent', 'LLM', 'Avatars', 'Qualtrics'],
+          projectPage: 'multi-agent-avatar',
+          year: '2026 · 심사 중'
+        },
+        {
           id: 4,
           title: 'Tridge Eye: My Curation - AI 시장 인텔리전스 챗봇',
           description: '하나의 질문을 초개인화된 마켓 레이더로 즉시 변환하는 "My Curation" 기능의 AI 챗봇 및 핵심 알고리즘 개발. 글로벌 농식품 산업의 수출 전략을 원클릭으로 제공.',
@@ -352,6 +402,40 @@ export const translations = {
       ]
     },
     projects: {
+      'multi-agent-avatar': {
+        title: 'Qualtrics 그룹 상호작용 실험을 위한 퍼실리테이터 주도 멀티 에이전트 아바타 툴킷',
+        year: '2026 · 심사 중',
+        tags: ['Human-AI Interaction', 'Multi-Agent', 'LLM', 'Avatars', 'Qualtrics', 'JavaScript'],
+        description: [
+          'Qualtrics 설문 질문 하나를 소그룹 대화로 바꿔 주는 오픈소스 툴킷입니다. 참가자 한 명, AI 퍼실리테이터, 그리고 실시간 립싱크 아바타로 등장하는 AI 페르소나 둘이 함께 대화합니다.',
+          'Michigan State University의 오유정(Yoo Jung (Erika) Oh) 교수님과 함께 만들었습니다. 논문은 심사 중이며 곧 프리프린트로 공개할 예정입니다.'
+        ],
+        sections: [
+          {
+            heading: '문제',
+            paragraphs: [
+              '설문에 챗봇을 넣는 방식 덕분에 대화형 실험은 쉬워졌지만, 대부분 일대일이고 텍스트뿐입니다. 동료의 지지, 사회적 영향, 대화 속 감정의 전이 같은 그룹 현상을 연구하려면 서로 구별되는 여러 AI 화자가 서로에게 반응하면서도 말이 겹치지 않아야 합니다.'
+            ]
+          },
+          {
+            heading: '참가자 화면',
+            figure: {
+              src: '/projects/multi-agent-avatar/ui.jpg',
+              alt: '왼쪽에 아바타 영상 타일 두 개, 오른쪽에 그룹 대화 기록이 있는 채팅 화면',
+              caption: '왼쪽은 아바타 페르소나 둘, 오른쪽은 함께 보는 대화창입니다. 라운드마다 퍼실리테이터가 먼저 말하고, 페르소나들이 차례로 답한 뒤 참가자가 입력합니다.'
+            }
+          },
+          {
+            heading: '해결 방법',
+            paragraphs: [
+              'Qualtrics 안에서 동작합니다. 툴킷 전체가 설문 질문에 붙여 넣는 JavaScript 파일 하나이고, 서버나 빌드 과정이 필요 없습니다.',
+              '아바타가 차례를 정합니다. 페르소나의 텍스트는 아바타가 말하기 시작할 때 나타나고, 다음 화자는 아바타가 말을 마칠 때까지 기다리므로 발화가 겹치지 않습니다.',
+              '공정한 비교를 위해 설계했습니다. 텍스트 전용 조건은 같은 대기 시간을 타이머로 재현하므로, 두 조건의 차이는 페르소나에게 얼굴이 있느냐 하나뿐입니다.',
+              '모든 것이 기록됩니다. 대화 기록, 타이밍, 각 페르소나의 감정이 매 턴마다 설문 데이터에 저장됩니다.'
+            ]
+          }
+        ]
+      },
       'my-curation': {
         title: 'Tridge Eye: My Curation - AI 시장 인텔리전스 챗봇',
         year: '2026',

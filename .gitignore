@@ -29,3 +29,7 @@ tmp/
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# RenderCV (resume build)
+.venv-resume/
+resume/rendercv_output/

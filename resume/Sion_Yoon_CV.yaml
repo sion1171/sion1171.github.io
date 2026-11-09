@@ -1,0 +1,147 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+# Source of truth for public/resume.pdf. Render with RenderCV (https://github.com/rendercv/rendercv):
+#   .venv-resume/bin/python resume/build.py   (wraps `rendercv render`, see build.py)
+cv:
+  name: Sion Yoon
+  headline: AI/Data Scientist — LLM, RAG & NLP
+  location: Seoul, South Korea
+  email: makeryoon1171@gmail.com
+  phone: +82 10 3837 3985
+  website: https://sion1171.github.io/
+  social_networks:
+    - network: LinkedIn
+      username: sion-yoon-135181246
+    - network: GitHub
+      username: sion1171
+  sections:
+    Education:
+      - institution: Michigan State University
+        area: Data Science, Minor in Mathematics
+        degree: BS
+        location: East Lansing, MI
+        start_date: 2021-09
+        end_date: present
+        highlights:
+          - "Engineering Dean's List. On a gap year for mandatory military service in Korea (alternative service at Tridge)"
+
+    Professional Experience:
+      - company: Tridge
+        position: AI/Data Scientist
+        location: Seoul, South Korea
+        start_date: 2025-01
+        end_date: present
+        highlights:
+          - 'Built a **RAG-based food product classifier** that maps noisy, multilingual trade descriptions to Tridge''s ~11,000-node product ontology (LLM normalization, pgvector retrieval, LLM reasoning with domain rules)'
+          - 'In production since Oct 2025, classifying tens of thousands of trade records weekly at **99.7% lower cost** (~$0.002 per record) and **45% higher accuracy** (now 95%+)'
+          - 'Built the AI chatbot and algorithms for **Tridge Eye "My Curation"**, turning a question into a personalized market radar'
+          - Built internal data systems and a Streamlit validation tool combining user and AI inputs for sales operations
+
+      - company: Michigan State University
+        position: Research Assistant
+        location: East Lansing, MI
+        date: 2023–24, 2026–present
+        highlights:
+          - 'Built an open-source Qualtrics toolkit for **multi-agent group conversation experiments**: an AI facilitator and two AI personas with real-time, lip-synced photorealistic avatars (OpenAI, Tavus), in a single JavaScript file with no server'
+          - Designed event-gated turn-taking that syncs text with avatar speech, plus a timing-matched text-only control
+          - 'Earlier built a multi-chatbot survey platform (Django, AWS, ChatGPT API). *Adviser: Dr. Yoo Jung (Erika) Oh*'
+
+      - company: Keimyung University (RIPL)
+        position: Research Intern
+        location: Daegu, South Korea
+        start_date: 2024-05
+        end_date: 2024-08
+        highlights:
+          - Built a **real-time panorama stitching pipeline** merging an autonomous ship's two front cameras (C++, ROS, OpenCV)
+          - 'Funded by KRISO (Korea Research Institute of Ships & Ocean Engineering). *Adviser: Dr. Seonghun Hong*'
+
+      - company: Michigan State University (Pyeon Lab)
+        position: PM & Full-stack Developer
+        location: East Lansing, MI
+        start_date: 2024-01
+        end_date: 2024-08
+        highlights:
+          - '**Led a team of 5** to rebuild [pyeonlab.org](https://pyeonlab.org), replacing the WordPress admin with a custom Django application'
+
+      - company: Facility for Rare Isotope Beams (FRIB)
+        position: Student Research Assistant
+        location: East Lansing, MI
+        start_date: 2023-08
+        end_date: 2024-05
+        highlights:
+          - Built emissivity and disk-thickness measurement devices; ran thermal-structural analysis of beam targets
+
+    Leadership:
+      - company: LIKELION MSU
+        position: President
+        location: East Lansing, MI
+        start_date: 2023-06
+        end_date: 2024-05
+        highlights:
+          - Led a Korean coding education group; taught web development to non-majors and managed nine hackathon projects
+
+    Publications:
+      - title: 'Tool Demo: A Facilitator-Led Multi-Agent Avatar Toolkit for Group Interaction Experiments in Qualtrics'
+        authors:
+          - '*Sion Yoon*'
+          - Yoo Jung (Erika) Oh
+        date: Under review
+      - title: 'Designing and Evaluating Multi-Chatbot Interface for Human-AI Communication: Preliminary Findings from a Persuasion Task'
+        authors:
+          - '*Sion Yoon*'
+          - Tae Eun Kim
+          - Yoo Jung Oh
+        journal: arXiv preprint
+        url: https://arxiv.org/abs/2406.19648
+        date: 2024-06
+
+    Skills:
+      - label: Technical
+        details: Python, SQL, LLMs/RAG, LangChain, pgvector, PostgreSQL, GCP, Snowflake, AWS
+      - label: Languages
+        details: Korean, English (bilingual)
+
+design:
+  theme: engineeringresumes
+  page:
+    top_margin: 0.45in
+    bottom_margin: 0.45in
+    left_margin: 0.55in
+    right_margin: 0.55in
+    show_top_note: false
+  header:
+    space_below_name: 0.35cm
+    space_below_headline: 0.3cm
+    space_below_connections: 0.3cm
+    connections:
+      phone_number_format: international
+  typography:
+    line_spacing: 0.6em
+    alignment: left
+    font_size:
+      body: 10pt
+      name: 24pt
+      section_titles: 1.25em
+    small_caps:
+      section_titles: true
+  section_titles:
+    line_thickness: 0.9pt
+    space_above: 0.45cm
+    space_below: 0.25cm
+  sections:
+    space_between_regular_entries: 0.38cm
+  entries:
+    date_and_location_width: 4.1cm
+    highlights:
+      bullet: "•"  # replaced with an en dash by resume/build.py (RenderCV has no en-dash option)
+      space_above: 0.1cm
+      space_between_items: 0.07cm
+  templates:
+    experience_entry:
+      main_column: "**COMPANY**, *POSITION* -- LOCATION\nSUMMARY\nHIGHLIGHTS"
+      date_and_location_column: "**DATE**"
+    education_entry:
+      main_column: "**INSTITUTION**, *DEGREE_WITH_AREA* -- LOCATION\nSUMMARY\nHIGHLIGHTS"
+      date_and_location_column: "**DATE**"
+    publication_entry:
+      main_column: "**TITLE**\nAUTHORS\nURL (JOURNAL)"
+      date_and_location_column: "*DATE*"
